@@ -1,23 +1,30 @@
-import 'package:coloring_app_admin_panel/utils/CustomWidgets/custom_textfields.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../../../constants/font_family.dart';
-import '../../../constants/font_size.dart';
 import '../../../constants/padding.dart';
 import '../../../constants/size_constant.dart';
-import '../../viewmodel/routes/dashboard_controller.dart';
 import '../dashboard/activitytable_widget.dart';
 import '../widgets/profile_notification_widget.dart';
 import '../widgets/title_searchbar_widget.dart';
 
 
 
-class RecentActivity extends StatelessWidget {
+class RecentActivity extends StatefulWidget {
   const RecentActivity({super.key});
 
   @override
+  State<RecentActivity> createState() => _RecentActivityState();
+}
+
+class _RecentActivityState extends State<RecentActivity> {
+  final TextEditingController controller = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final TextEditingController controller = TextEditingController();
 
     return  Padding(
       padding: AppPadding.globalpadding,
@@ -32,6 +39,7 @@ class RecentActivity extends StatelessWidget {
 
           TitleSearchbarWidget(
             controller: controller,
+            title: "Recent Activity",
             validator: (p0) {
               return null;
             },

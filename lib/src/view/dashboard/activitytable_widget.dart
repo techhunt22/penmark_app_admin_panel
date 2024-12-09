@@ -159,7 +159,7 @@ ListView buildListView() {
                               color: AppColors.black,
                               fontWeight: AppFonts.regular),
                         ),
-                        Image.asset("icons/newtab.png")
+                        Image.asset("icons/png/newtab.png")
                       ],
                     ))),
             // Reduced flex for actions

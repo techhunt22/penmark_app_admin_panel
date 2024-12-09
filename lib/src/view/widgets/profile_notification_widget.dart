@@ -22,7 +22,7 @@ class ProfileNotificationWidget extends StatelessWidget {
           child: Row(
             children: [
               CircleAvatar(
-                backgroundImage: AssetImage('assets/icons/profile.png'),
+                backgroundImage: AssetImage('assets/icons/png/profile.png'),
               ),
               SizedBox(width: 10),
               Text(

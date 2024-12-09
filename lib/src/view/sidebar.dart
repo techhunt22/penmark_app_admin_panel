@@ -23,42 +23,42 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
   final List<Map<String, dynamic>> navItems = [
     {
       'label': 'Dashboard',
-      'icon': "assets/icons/dashboard.png",
+      'icon': "assets/icons/png/dashboard.png",
       'route': AppRoutes.dashboard
     },
     {
       'label': 'Templates',
-      'icon': "assets/icons/templates.png",
+      'icon': "assets/icons/png/templates.png",
       'route': AppRoutes.templates
     },
     {
       'label': 'Collections',
-      'icon': "assets/icons/collections.png",
+      'icon': "assets/icons/png/collections.png",
       'route': AppRoutes.collections
     },
     {
       'label': 'Recent Activity',
-      'icon': "assets/icons/recentactivity.png",
+      'icon': "assets/icons/png/recentactivity.png",
       'route': AppRoutes.recentActivity
     },
     {
       'label': 'Users',
-      'icon': "assets/icons/users.png",
+      'icon': "assets/icons/png/users.png",
       'route': AppRoutes.users
     },
     {
       'label': 'Orders',
-      'icon': "assets/icons/orders.png",
+      'icon': "assets/icons/png/orders.png",
       'route': AppRoutes.orders
     },
     {
       'label': 'Settings',
-      'icon': "assets/icons/settings.png",
+      'icon': "assets/icons/png/settings.png",
       'route': AppRoutes.settings
     },
     {
       'label': 'Logout',
-      'icon': "assets/icons/logouticon.png",
+      'icon': "assets/icons/png/logouticon.png",
       'route': AppRoutes.logout
     },
   ];
@@ -81,7 +81,7 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
           children: [
             // Logo
             Image.asset(
-              'icons/logo.png',
+              'icons/png/logo.png',
               height: 137,
             ),
 
