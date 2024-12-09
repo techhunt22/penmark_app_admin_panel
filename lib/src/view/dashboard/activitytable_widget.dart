@@ -1,0 +1,203 @@
+import 'package:coloring_app_admin_panel/constants/color_constants.dart';
+import 'package:coloring_app_admin_panel/constants/font_family.dart';
+import 'package:coloring_app_admin_panel/constants/font_size.dart';
+import 'package:coloring_app_admin_panel/constants/size_constant.dart';
+import 'package:flutter/material.dart';
+
+import '../widgets/pagination_widget.dart';
+
+class ActivityTable extends StatelessWidget {
+  final bool isDashboard;
+
+  const ActivityTable({super.key, required this.isDashboard});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          height: 75,
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 25),
+          decoration: BoxDecoration(
+              color: AppColors.white, borderRadius: BorderRadius.circular(10)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              _buildHeadingContainer('User Name', 2),
+              const SizedBox(width: gap),
+              // Add spacing between columns
+              _buildHeadingContainer('Activity Type', 2),
+              const SizedBox(width: gap),
+              // Add spacing between columns
+              _buildHeadingContainer('Description', 4),
+              // Increased flex for description
+              const SizedBox(width: gap),
+              // Add spacing between columns
+              _buildHeadingContainer('Date & Time', 2),
+              const SizedBox(width: gap),
+              // Add spacing between columns
+              _buildHeadingContainer('Actions', 1),
+              // Reduced flex for actions
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: gap1,
+        ),
+
+        isDashboard
+            ? SizedBox(
+                height: MediaQuery.of(context).size.height / 3.42,
+                child: buildListView(),
+              )
+            : buildListView(),
+
+        const SizedBox(height: gap),
+
+        // Pagination
+
+        isDashboard ? const SizedBox.shrink()
+            : const PaginationWidget()
+      ],
+    );
+  }
+
+
+}
+
+ListView buildListView() {
+  return ListView.builder(
+    itemCount: 7,
+    shrinkWrap: true,
+    itemBuilder: (context, index) {
+      return Container(
+        height: 75,
+        padding: const EdgeInsets.symmetric(horizontal: 25),
+        margin: const EdgeInsets.symmetric(vertical: 5),
+        decoration: BoxDecoration(
+            color: AppColors.white, borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            const Expanded(
+                flex: 2,
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 19,
+                      child: Text(
+                        "JD",
+                        style: TextStyle(
+                            fontSize: AppFontSize.bodymedium,
+                            fontWeight: AppFonts.regular),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Flexible(
+                      child: Text(
+                        "John Doe",
+                        maxLines: 1,
+                        textAlign: TextAlign.left,
+                        // Align text to the left
+
+                        style: TextStyle(
+                            fontSize: AppFontSize.bodymedium,
+                            fontWeight: AppFonts.regular),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                )),
+
+            const SizedBox(width: gap),
+            // Add spacing between columns
+            _buildContainer('User Ordered for Print', 2),
+            const SizedBox(width: gap),
+            // Add spacing between columns
+            _buildContainer(
+                'John Doe saved progress on '
+                    'Floral Design'
+                    ' template.',
+                4),
+            // Increased flex for description
+            const SizedBox(width: gap),
+            // Add spacing between columns
+            _buildContainer('Nov 20, 2024, 10:00 AM', 2),
+            const SizedBox(width: gap),
+            // Add spacing between columns
+            Expanded(
+                flex: 1,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      shadowColor: AppColors.transparent,
+                      overlayColor: AppColors.transparent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 10),
+                      backgroundColor: AppColors.brightblue.withOpacity(0.2),
+                    ),
+                    onPressed: () {},
+                    child: Wrap(
+                      alignment: WrapAlignment.center,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      runAlignment: WrapAlignment.center,
+                      runSpacing: 10,
+                      spacing: 10,
+                      children: [
+                        const Text(
+                          "View Details",
+                          style: TextStyle(
+                              fontSize: AppFontSize.bodysmall2,
+                              color: AppColors.black,
+                              fontWeight: AppFonts.regular),
+                        ),
+                        Image.asset("icons/newtab.png")
+                      ],
+                    ))),
+            // Reduced flex for actions
+          ],
+        ),
+      );
+    },
+  );
+}
+
+Widget _buildHeadingContainer(String text, int flex) {
+  return Expanded(
+    flex: flex,
+    child: Text(
+      text,
+      maxLines: 1,
+      textAlign: TextAlign.left, // Align text to the left
+
+      style: const TextStyle(
+          fontSize: AppFontSize.bodymedium, fontWeight: AppFonts.bold),
+      overflow: TextOverflow.ellipsis,
+    ),
+  );
+}
+
+Widget _buildContainer(String text, int flex) {
+  return Expanded(
+    flex: flex,
+    child: Text(
+      text,
+      maxLines: 2,
+      textAlign: TextAlign.left, // Align text to the left
+
+      style: const TextStyle(
+          fontSize: AppFontSize.bodymedium, fontWeight: AppFonts.regular),
+      overflow: TextOverflow.ellipsis,
+    ),
+  );
+}
+
+
