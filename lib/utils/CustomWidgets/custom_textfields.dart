@@ -24,7 +24,6 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -48,7 +47,6 @@ class CustomTextField extends StatelessWidget {
           controller: controller,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.done,
-
           cursorColor: AppColors.white,
           validator: validator,
           style: const TextStyle(
@@ -60,8 +58,7 @@ class CustomTextField extends StatelessWidget {
               maxWidth: 506,
             ),
             filled: true,
-            contentPadding:  const EdgeInsets.symmetric(vertical: 25),
-
+            contentPadding: const EdgeInsets.symmetric(vertical: 25),
             fillColor: AppColors.white.withOpacity(0.1),
             hintText: hinttext,
             prefixIcon: icon,
@@ -73,13 +70,11 @@ class CustomTextField extends StatelessWidget {
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide:
-              const BorderSide(color: AppColors.white, width: 1),
+              borderSide: const BorderSide(color: AppColors.white, width: 1),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide:
-              const BorderSide(color: AppColors.white, width: 1),
+              borderSide: const BorderSide(color: AppColors.white, width: 1),
             ),
           ),
         ),
@@ -156,11 +151,10 @@ class CustomPasswordFieldState extends State<CustomPasswordField> {
             constraints: const BoxConstraints(
               maxWidth: 506,
             ),
-            contentPadding:  const EdgeInsets.symmetric(vertical: 25),
+            contentPadding: const EdgeInsets.symmetric(vertical: 25),
             fillColor: AppColors.white.withOpacity(0.1),
             hintText: widget.hinttext,
             prefixIcon: widget.icon,
-
             hintStyle: const TextStyle(
               color: AppColors.warmgray,
               fontWeight: AppFonts.regular,
@@ -169,13 +163,11 @@ class CustomPasswordFieldState extends State<CustomPasswordField> {
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide:
-              const BorderSide(color: AppColors.white, width: 1),
+              borderSide: const BorderSide(color: AppColors.white, width: 1),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide:
-              const BorderSide(color: AppColors.white, width: 1),
+              borderSide: const BorderSide(color: AppColors.white, width: 1),
             ),
             suffixIcon: IconButton(
               focusNode: NeverFocusNode(),
@@ -197,8 +189,6 @@ class NeverFocusNode extends FocusNode {
   bool get canRequestFocus => false;
 }
 
-
-
 class SearchField extends StatelessWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
@@ -215,7 +205,6 @@ class SearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return TextFormField(
       controller: controller,
       keyboardType: TextInputType.text,
@@ -232,8 +221,12 @@ class SearchField extends StatelessWidget {
           maxWidth: 506,
         ),
         filled: true,
-        contentPadding:  const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        suffixIcon: const Icon(Icons.search_outlined, color: AppColors.purple,),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        suffixIcon: const Icon(
+          Icons.search_outlined,
+          color: AppColors.purple,
+        ),
         fillColor: AppColors.white,
         hoverColor: AppColors.white,
         hintText: hinttext,
@@ -245,16 +238,191 @@ class SearchField extends StatelessWidget {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide:
-          const BorderSide(color: AppColors.white, width: 1),
+          borderSide: const BorderSide(color: AppColors.white, width: 1),
         ),
         focusColor: AppColors.white,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide:
-          const BorderSide(color: AppColors.white, width: 1),
+          borderSide: const BorderSide(color: AppColors.white, width: 1),
         ),
       ),
+    );
+  }
+}
+
+class EditProfileField extends StatelessWidget {
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
+  final String hinttext;
+  final String? title;
+  final bool titleon;
+  final String icon1;
+
+  const EditProfileField({
+    super.key,
+    required this.controller,
+    required this.validator,
+    this.title,
+    required this.hinttext,
+    required this.titleon,
+    required this.icon1,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        titleon
+            ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Text(
+                  title!,
+                  style: const TextStyle(
+                    fontSize: AppFontSize.bodymedium,
+                    fontWeight: AppFonts.regular,
+                    color: AppColors.black,
+                  ),
+                ),
+              )
+            : const SizedBox.shrink(),
+        const SizedBox(
+          height: 10,
+        ),
+        TextFormField(
+          controller: controller,
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.done,
+          cursorColor: AppColors.black,
+          validator: validator,
+          style: const TextStyle(
+            color: AppColors.black,
+            fontSize: AppFontSize.bodylarge,
+          ),
+          decoration: InputDecoration(
+            constraints: const BoxConstraints(
+              maxWidth: 347,
+            ),
+            filled: true,
+            contentPadding: const EdgeInsets.symmetric(vertical: 20),
+            fillColor: AppColors.lightgray,
+            hoverColor: AppColors.lightgray,
+            hintText: hinttext,
+            prefixIcon: Image.asset(icon1),
+            suffixIcon: Image.asset("icons/png/editicon.png"),
+            hintStyle: const TextStyle(
+              color: AppColors.warmgray,
+              fontWeight: AppFonts.regular,
+              fontSize: AppFontSize.bodymedium,
+            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: const BorderSide(color: AppColors.white, width: 1),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: const BorderSide(color: AppColors.white, width: 1),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class PrintTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
+  final String hinttext;
+  final String? title;
+  final TextInputType? textinputtype;
+  final bool titleon;
+  final double width;
+  final bool readonly;
+  final bool isDollar;
+
+  const PrintTextField({
+    super.key,
+    required this.controller,
+    required this.validator,
+    this.title,
+    required this.hinttext,
+    required this.titleon,
+    required this.readonly, required this.isDollar, this.textinputtype, required this.width,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        titleon
+            ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Text(
+                  title!,
+                  style: const TextStyle(
+                    fontSize: AppFontSize.bodymedium,
+                    fontWeight: AppFonts.regular,
+                    color: AppColors.black,
+                  ),
+                ),
+              )
+            : const SizedBox.shrink(),
+        const SizedBox(
+          height: 10,
+        ),
+        TextFormField(
+          controller: controller,
+          keyboardType: textinputtype,
+          textInputAction: TextInputAction.done,
+          readOnly: readonly,
+          cursorColor: AppColors.black,
+          validator: validator,
+          style: const TextStyle(
+            color: AppColors.black,
+            fontWeight: AppFonts.regular,
+            fontSize: AppFontSize.bodylarge,
+          ),
+          decoration: InputDecoration(
+            constraints: BoxConstraints(
+              maxWidth: width,
+            ),
+            filled: true,
+            contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            fillColor: AppColors.lightgray,
+            hoverColor: AppColors.lightgray,
+            hintText: hinttext,
+            prefixIcon: isDollar ? Padding(
+              padding: const EdgeInsets.only(left: 15, top: 15, bottom: 15), // Center-align the dollar sign vertically
+              child: Text(
+                "\$",
+                style: TextStyle(
+                  color: AppColors.black,
+                  fontWeight: AppFonts.regular,
+                  fontSize: AppFontSize.bodylarge,
+                ),
+              ),
+            ) : null,
+            hintStyle: const TextStyle(
+              color: AppColors.warmgray,
+              fontWeight: AppFonts.regular,
+              fontSize: AppFontSize.bodymedium,
+            ),
+
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: const BorderSide(color: AppColors.white, width: 1),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: const BorderSide(color: AppColors.white, width: 1),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

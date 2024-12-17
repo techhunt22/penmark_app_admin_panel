@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../src/view/dashboard.dart';
+import '../../src/presentation/pages/dashboard.dart';
 
 class ErrorScreen extends StatelessWidget {
   final String? message;
@@ -37,7 +37,7 @@ class ErrorScreen extends StatelessWidget {
             ],
             const SizedBox(height: 32),
             ElevatedButton(
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const MainScreen(),)),
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const MainDashboardScreen(),)),
               child: const Text('Return to Home'),
             ),
           ],

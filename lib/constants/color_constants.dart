@@ -12,6 +12,7 @@ class AppColors {
   static const Color warmgray = Color(0xff9CA3AF);
   static const Color lightgray = Color(0xffF3F4F6);
   static const Color gray = Color(0xffADADAD);
+  static const Color green = Color(0xff008000);
 
   static const Color  white = Colors.white;
   static const Color  white2 = Color(0xffF5F5F5);
@@ -26,7 +27,7 @@ class AppColors {
   static const Color transparent = Colors.transparent;
 
   static Color greylight =  const Color(0xffFFFFFF).withOpacity(0.65);
-  static const Color grey =  Colors.grey;
+
 
 }
 

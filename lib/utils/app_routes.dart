@@ -5,6 +5,8 @@ class AppRoutes {
   static const String templates = '/templates';
   static const String collections = '/collections';
   static const String users = '/users';
+  static const String usersdetail = '/usersdetail';
+  static const String usersorderdetail = '/usersorderdetail';
   static const String orders = '/orders';
   static const String settings = '/settings';
   static const String logout = '/logout';
