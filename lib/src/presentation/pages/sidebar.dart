@@ -17,7 +17,6 @@ class NavigationSidebar extends StatefulWidget {
 }
 
 class _NavigationSidebarState extends State<NavigationSidebar> {
-  int _selectedIndex = 0;
   int? _hoveredIndex;
   final controller = Get.find<NavigationController>();
 
@@ -104,10 +103,7 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
                   icon: item['icon'],
                   index: index,
                   ontap: (index) {
-                    setState(() {
-                      _selectedIndex = index; // Update index
-                      Scaffold.of(context).closeEndDrawer();
-                    });
+                    Scaffold.of(context).closeEndDrawer();
                     controller.updateSelectedIndex(index); // Update selected index
                     controller.changePage(item['route']);
                   },
@@ -123,9 +119,7 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
                 icon: logoutItem['icon'],
                 index: navItems.length - 1,
                 ontap: (index) {
-                  setState(() {
-                    _selectedIndex = index; // Update index
-                  });
+                  Scaffold.of(context).closeEndDrawer();
                   controller.updateSelectedIndex(index); // Update selected index
                   controller.handleLogout(context); // Call logout method
                 },
