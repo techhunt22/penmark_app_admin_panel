@@ -6,13 +6,13 @@ import '../../../../constants/font_family.dart';
 import '../../../../constants/font_size.dart';
 import '../../../../constants/padding.dart';
 import '../../../../constants/size_constant.dart';
+import '../../../../utils/CustomWidgets/custom_buttons.dart';
 import '../../../../utils/app_routes.dart';
 
 import '../../controllers/routes/navigation_controller.dart';
 import '../../widgets/pagination_widget.dart';
 import '../../widgets/profile_notification_widget.dart';
 import '../../widgets/title_searchbar_widget.dart';
-
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({super.key});
@@ -41,9 +41,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
           const Align(
               alignment: Alignment.centerRight,
               child: ProfileNotificationWidget()),
-
           const SizedBox(height: gap3),
-
           TitleSearchbarWidget(
             controller: controller,
             title: "Orders Management",
@@ -52,11 +50,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
               return null;
             },
           ),
-
           const SizedBox(height: gap2),
           Container(
             height: 75,
-            padding: const EdgeInsets.symmetric( horizontal: 25),
+            padding: const EdgeInsets.symmetric(horizontal: 25),
             decoration: BoxDecoration(
                 color: AppColors.white,
                 borderRadius: BorderRadius.circular(10)),
@@ -67,38 +64,35 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 _buildHeadingContainer('Order ID', 2, false),
                 const SizedBox(width: gap),
                 // Add spacing between columns
-                _buildHeadingContainer('User Name', 4,false),
+                _buildHeadingContainer('User Name', 4, false),
                 const SizedBox(width: gap),
                 // Add spacing between columns
-                _buildHeadingContainer('Date & Time', 2,false),
+                _buildHeadingContainer('Date & Time', 2, false),
                 // Increased flex for description
                 const SizedBox(width: gap),
                 // Add spacing between columns
-                _buildHeadingContainer('Item Ordered', 3,true),
+                _buildHeadingContainer('Item Ordered', 3, true),
 
                 const SizedBox(width: gap),
                 // Add spacing between columns
-                _buildHeadingContainer('Quantity', 2,true),
+                _buildHeadingContainer('Quantity', 2, true),
 
                 const SizedBox(width: gap),
                 // Add spacing between columns
-                _buildHeadingContainer('Status', 3,true),
+                _buildHeadingContainer('Status', 3, true),
                 const SizedBox(width: gap),
                 // Add spacing between columns
-                _buildHeadingContainer('Actions', 3,true),
+                _buildHeadingContainer('Actions', 3, true),
 
                 // Reduced flex for actions
               ],
             ),
           ),
-
           const SizedBox(
             height: gap1,
           ),
           buildListView(dashboardController),
-
           const SizedBox(height: gap),
-
           const PaginationWidget()
         ],
       ),
@@ -121,9 +115,8 @@ Widget buildListView(NavigationController dashboardController) {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            _buildContainer('1001', 2,false),
+            _buildContainer('1001', 2, false),
             const SizedBox(width: gap),
-
             const Expanded(
                 flex: 4,
                 child: Row(
@@ -156,23 +149,13 @@ Widget buildListView(NavigationController dashboardController) {
                     ),
                   ],
                 )),
-
-
             const SizedBox(width: gap),
-
             _buildContainer('Nov 20, 2024', 2, false),
-
             const SizedBox(width: gap),
-
-
-            _buildContainer('Rose Collection Print', 3,true),
-
-            const  SizedBox(width: gap),
-
+            _buildContainer('Rose Collection Print', 3, true),
+            const SizedBox(width: gap),
             _buildContainer('1', 2, true),
-
             const SizedBox(width: gap),
-
             Expanded(
               flex: 3,
               child: Align(
@@ -198,55 +181,31 @@ Widget buildListView(NavigationController dashboardController) {
                 ),
               ),
             ),
-
             const SizedBox(width: gap),
-
-
             Expanded(
               flex: 3,
               child: Align(
                 alignment: Alignment.center,
                 child: Container(
                   constraints: const BoxConstraints(maxWidth: 120),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      shadowColor: AppColors.transparent,
-                      overlayColor: AppColors.transparent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: 10,
-                      ),
-                      backgroundColor: AppColors.brightblue.withOpacity(0.2),
-                    ),
-                    onPressed: (){ 
-                      dashboardController.changePage(AppRoutes.usersorderdetail,);},
-                    child: Wrap(
-                      alignment: WrapAlignment.center,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      runAlignment: WrapAlignment.center,
-                      spacing: 10,
-                      children: [
-                        Text(
-                          "View",
-                          style: const TextStyle(
-                            fontSize: AppFontSize.bodysmall2,
-                            color: AppColors.black,
-                            fontWeight: AppFonts.regular,
-                          ),
-                        ),
-                        Image.asset("icons/png/newtab.png")
-                      ],
-                    ),
-                  ),
+                  child: CustomTextIconButton(
+                      onPressed: () {
+                        dashboardController.changePage(
+                          AppRoutes.usersorderdetail,
+                        );
+                      },
+                      height: 45,
+                      width: 120,
+                      text: "View",
+                      color: AppColors.brightblue,
+                      borderradius: 8,
+                      fontsize: AppFontSize.bodysmall2,
+                      textcolor: AppColors.black,
+                      opacity: 0.2,
+                      img: "icons/png/newtab.png"),
                 ),
               ),
             ),
-
-
           ],
         ),
       );
@@ -254,13 +213,14 @@ Widget buildListView(NavigationController dashboardController) {
   );
 }
 
-Widget _buildHeadingContainer(String text, int flex,bool isCenter) {
+Widget _buildHeadingContainer(String text, int flex, bool isCenter) {
   return Expanded(
     flex: flex,
     child: Text(
       text,
       maxLines: 1,
-      textAlign:  isCenter ? TextAlign.center : TextAlign.start, // Align text to the left
+      textAlign: isCenter ? TextAlign.center : TextAlign.start,
+      // Align text to the left
 
       style: const TextStyle(
           fontSize: AppFontSize.bodymedium, fontWeight: AppFonts.bold),
@@ -286,5 +246,3 @@ Widget _buildContainer(String text, int flex, bool isCenter) {
     ),
   );
 }
-
-

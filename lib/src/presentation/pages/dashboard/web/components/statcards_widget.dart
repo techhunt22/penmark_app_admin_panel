@@ -1,7 +1,8 @@
 import 'package:coloring_app_admin_panel/constants/font_family.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
-class StatsCard extends StatelessWidget {
+class StatsCardWeb extends StatelessWidget {
   final double width;
   final double height;
   final double titlesize;
@@ -12,7 +13,7 @@ class StatsCard extends StatelessWidget {
   final String icon;
   final double iconheight;
 
-  const StatsCard({
+  const StatsCardWeb({
     super.key,
     required this.width,
     required this.title,
@@ -23,41 +24,38 @@ class StatsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return Container(
+      width: width,
+      height: height,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Wrap(
+        runAlignment: WrapAlignment.center,
+        runSpacing: 5,
+        spacing: 5,
+        alignment: WrapAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
 
-      child: Container(
-        width: width,
-        height: height,
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Wrap(
-          runAlignment: WrapAlignment.center,
-          runSpacing: 5,
-          spacing: 5,
-          alignment: WrapAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              Text(value,
+                  style:  TextStyle(
+                      fontSize: titlesize, fontWeight: AppFonts.semiBold)),
+              const SizedBox(height: 8),
 
-                Text(value,
-                    style:  TextStyle(
-                        fontSize: titlesize, fontWeight: AppFonts.semiBold)),
-                const SizedBox(height: 8),
+              Text(title, style:  TextStyle(fontSize: subtitlesize, fontWeight: AppFonts.regular)),
+            ],
+          ),
 
-                Text(title, style:  TextStyle(fontSize: subtitlesize, fontWeight: AppFonts.regular)),
-              ],
-            ),
-
-            Image.asset(
-              icon,
-              height: iconheight,
-            ),
-          ],
-        ),
+          SvgPicture.asset(
+            icon,
+            height: iconheight,
+          ),
+        ],
       ),
     );
   }

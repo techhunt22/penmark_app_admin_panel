@@ -244,43 +244,29 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                                 fontSize: AppFontSize.bodysmall2,
                                 fontWeight: AppFonts.regular),
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              showDeleteDialog(
-                                  context: context,
-                                  cancel: (){
-                                    Navigator.pop(context);
-                                  },
-                                  save: () {},
-                                  text: "Are you sure you want to delete this user account?",
-                                  subtitle: "This action cannot be undone.",
-                                  img: "assets/icons/png/deleteiconred.png"
-                              );
-                            },
-                            child: Container(
-                              height: 40,
+                          CustomTextIconButton(
+                              onPressed: (){
+                                showDeleteDialog(
+                                    context: context,
+                                    cancel: (){
+                                      Navigator.pop(context);
+                                    },
+                                    save: () {},
+                                    text: "Are you sure you want to delete this user account?",
+                                    subtitle: "This action cannot be undone.",
+                                    img: "assets/icons/png/deleteiconred.png"
+                                );
+                              },
+                              height: 45,
                               width: 120,
-                              decoration: BoxDecoration(
-                                  color:
-                                      AppColors.orangesoft.withOpacity(0.5),
-                                  borderRadius:
-                                      BorderRadiusDirectional.circular(6)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    "Delete",
-                                    style: TextStyle(
-                                        fontSize: AppFontSize.bodysmall2,
-                                        fontWeight: AppFonts.regular),
-                                  ),
-                                  Image.asset(
-                                      "assets/icons/png/deleteicon.png"),
-                                ],
-                              ),
-                            ),
-                          )
+                              text:  "Delete",
+                              color:  AppColors.orangesoft,
+                              borderradius: 6,
+                              fontsize: AppFontSize.bodysmall2,
+                              textcolor:AppColors.black,
+                              opacity: 0.5,
+                              img: "assets/icons/png/deleteicon.png"
+                          ),
                         ],
                       ),
                     )

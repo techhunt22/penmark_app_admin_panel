@@ -34,11 +34,11 @@ class DashboardWebWidget extends StatelessWidget {
           ),
           const SizedBox(height: gap2),
           // Stats Cards
-          Wrap(
+         const Wrap(
             spacing: 20,
             runSpacing: 20,
             children: [
-              StatsCard(
+              StatsCardWeb(
                 width: 365,
                 height: 138,
                 iconheight: 40,
@@ -46,10 +46,10 @@ class DashboardWebWidget extends StatelessWidget {
                 subtitlesize: AppFontSize.titlemedium,
                 title: 'Total Users',
                 value: '12,340',
-                color: AppColors.brightblue.withOpacity(0.5),
-                icon: "icons/png/totalusers.png",
+                color: AppColors.brightblue,
+                icon: "icons/svg/totalusersicon.svg",
               ),
-              StatsCard(
+              StatsCardWeb(
                 width: 365,
                 height: 138,
                 title: 'Templates',
@@ -57,10 +57,10 @@ class DashboardWebWidget extends StatelessWidget {
                 titlesize: AppFontSize.headlinelarge,
                 subtitlesize: AppFontSize.titlemedium,
                 value: '320',
-                color: AppColors.purple.withOpacity(0.5),
-                icon: "icons/png/palette.png",
+                color: AppColors.purple,
+                icon: "icons/svg/templateicon.svg",
               ),
-              StatsCard(
+              StatsCardWeb(
                 width: 365,
                 height: 138,
                 title: 'Collections',
@@ -68,10 +68,10 @@ class DashboardWebWidget extends StatelessWidget {
                 titlesize: AppFontSize.headlinelarge,
                 subtitlesize: AppFontSize.titlemedium,
                 value: '45',
-                color: AppColors.yellowvibrant.withOpacity(0.5),
-                icon: "icons/png/collection.png",
+                color: AppColors.yellowvibrant,
+                icon: "icons/svg/collectionicon.svg",
               ),
-              StatsCard(
+              StatsCardWeb(
                 width: 365,
                 height: 138,
                 title: 'Pending Orders',
@@ -79,11 +79,12 @@ class DashboardWebWidget extends StatelessWidget {
                 titlesize: AppFontSize.headlinelarge,
                 subtitlesize: AppFontSize.titlemedium,
                 value: '15',
-                color: AppColors.orangesoft.withOpacity(0.5),
-                icon: "icons/png/pendingorder.png",
+                color: AppColors.orangesoft,
+                icon: "icons/svg/pendingordericon.svg",
               ),
             ],
           ),
+
           const SizedBox(height: gap2),
           // Quick Actions
           Wrap(
@@ -93,7 +94,7 @@ class DashboardWebWidget extends StatelessWidget {
               ActionCard(
                   title: 'Add Template',
                   icon: "icons/png/palette.png",
-                  onTap: () {},
+                  onTap: (){},
                   width: 490,
                   title2: 'Add Template',
                   color: AppColors.orangesoft),
@@ -118,12 +119,13 @@ class DashboardWebWidget extends StatelessWidget {
 
           const SizedBox(height: gap2),
           // Recent Activity
-          Text(
+         const Text(
             'Recent Activity',
             style: TextStyle(fontSize: AppFontSize.displaysmall, fontWeight: AppFonts.regular),
           ),
-          SizedBox(height: gap1),
-          ActivityTable(isDashboard: true,),
+          const  SizedBox(height: gap1),
+
+          const ActivityTable(isDashboard: true,),
         ],
       ),
     );

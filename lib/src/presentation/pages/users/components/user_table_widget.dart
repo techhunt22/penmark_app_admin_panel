@@ -5,6 +5,7 @@ import 'package:coloring_app_admin_panel/constants/size_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../utils/CustomWidgets/custom_buttons.dart';
 import '../../../../../utils/app_routes.dart';
 import '../../../controllers/routes/navigation_controller.dart';
 import '../../../widgets/pagination_widget.dart';
@@ -169,7 +170,7 @@ Widget buildListView(NavigationController dashboardController) {
                     _buildActionButton(
                         text: "View",
                         img: "icons/png/newtab.png",
-                        clr: AppColors.brightblue.withOpacity(0.2),
+                        clr: AppColors.brightblue,
                         ontap: (){
                           dashboardController.changePage(AppRoutes.usersdetail,);
 
@@ -244,40 +245,22 @@ Widget _buildContainer(String text, int flex) {
 
 Widget _buildActionButton({required String text,required VoidCallback ontap, required String img, required Color clr}) {
   return Container(
-    constraints: const BoxConstraints(maxWidth: 120),
-    child: ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        elevation: 0,
-        shadowColor: AppColors.transparent,
-        overlayColor: AppColors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        padding: const EdgeInsets.symmetric(
-          vertical: 10,
-          horizontal: 10,
-        ),
-        backgroundColor: clr,
-      ),
-      onPressed: ontap,
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        runAlignment: WrapAlignment.center,
-        spacing: 10,
-        children: [
-          Text(
-            text,
-            style: const TextStyle(
-              fontSize: AppFontSize.bodysmall2,
-              color: AppColors.black,
-              fontWeight: AppFonts.regular,
-            ),
-          ),
-          Image.asset(img)
-        ],
-      ),
-    ),
+      constraints: const BoxConstraints(maxWidth: 120),
+      child: CustomTextIconButton(
+          onPressed: ontap,
+          height:45 ,
+          width: 115,
+          text:  text,
+          color: clr,
+          borderradius: 8,
+          fontsize:  AppFontSize.bodysmall2,
+          textcolor:AppColors.black,
+          opacity: 0.2,
+          img: img
+      )
+
+
+
   );
 }
 

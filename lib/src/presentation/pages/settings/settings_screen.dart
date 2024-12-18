@@ -6,6 +6,7 @@ import '../../../../constants/font_family.dart';
 import '../../../../constants/font_size.dart';
 import '../../../../constants/padding.dart';
 import '../../../../constants/size_constant.dart';
+import '../../../../utils/CustomWidgets/custom_buttons.dart';
 import '../../widgets/profile_notification_widget.dart';
 import '../../widgets/user_profile_img.dart';
 
@@ -176,24 +177,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     isDollar: true,
                     readonly: false,
                   ),
-                  ElevatedButton(
-                      style: ButtonStyle(
-                          padding: WidgetStatePropertyAll(EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 0)),
-                          backgroundColor:
-                              WidgetStatePropertyAll(AppColors.yellowvibrant),
-                          splashFactory: NoSplash.splashFactory,
-                          shadowColor:
-                              WidgetStatePropertyAll(Colors.transparent),
-                          overlayColor:
-                              WidgetStatePropertyAll(AppColors.transparent),
-                          shape: WidgetStatePropertyAll(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          )),
-                      onPressed: () {},
-                      child: Image.asset("icons/png/addicon.png")),
+
+
+                  CustomIconButton(
+                    color: AppColors.yellowvibrant,
+                    img: "icons/png/addicon.png",
+                    onPressed: (){},
+                  ),
+
                   ElevatedButton(
                     style: ButtonStyle(
                         padding: WidgetStatePropertyAll(
@@ -257,12 +248,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             width: 5,
                           ),
                           iconButtonIWidget(
-                              "icons/png/updateicon.png", AppColors.purple),
+                              "icons/png/updateicon.png", AppColors.purple, (){}),
                           const SizedBox(
                             width: 5,
                           ),
                           iconButtonIWidget(
-                              "icons/png/deleteicon.png", AppColors.orangesoft)
+                              "icons/png/deleteicon.png", AppColors.orangesoft, (){})
                         ],
                       ),
                     );
@@ -403,12 +394,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             width: 5,
                           ),
                           iconButtonIWidget(
-                              "icons/png/updateicon.png", AppColors.purple),
+                              "icons/png/updateicon.png", AppColors.purple, (){}),
                           const SizedBox(
                             width: 5,
                           ),
                           iconButtonIWidget(
-                              "icons/png/deleteicon.png", AppColors.orangesoft)
+                              "icons/png/deleteicon.png", AppColors.orangesoft, (){}),
                         ],
                       ),
                     );
@@ -457,12 +448,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     readonly: false,
                   ),
                   iconButtonIWidget(
-                      "icons/png/updateicon.png", AppColors.purple),
+                      "icons/png/updateicon.png", AppColors.purple, (){}),
                   const SizedBox(
                     width: 5,
                   ),
                   iconButtonIWidget(
-                      "icons/png/deleteicon.png", AppColors.orangesoft),
+                      "icons/png/deleteicon.png", AppColors.orangesoft, (){}),
 
 
                   SizedBox(width: gap5,),
@@ -484,32 +475,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     readonly: false,
                   ),
                   iconButtonIWidget(
-                      "icons/png/updateicon.png", AppColors.purple),
+                      "icons/png/updateicon.png", AppColors.purple, (){}),
                   const SizedBox(
                     width: 5,
                   ),
                   iconButtonIWidget(
-                      "icons/png/deleteicon.png", AppColors.orangesoft)
+                      "icons/png/deleteicon.png", AppColors.orangesoft, (){}),
                 ],
               ),
             ])));
   }
 }
 
-Widget iconButtonIWidget(String img, Color color) {
-  return ElevatedButton(
-      style: ButtonStyle(
-          padding: WidgetStatePropertyAll(
-              EdgeInsets.symmetric(vertical: 20, horizontal: 0)),
-          backgroundColor: WidgetStatePropertyAll(color.withOpacity(0.5)),
-          splashFactory: NoSplash.splashFactory,
-          shadowColor: WidgetStatePropertyAll(Colors.transparent),
-          overlayColor: WidgetStatePropertyAll(AppColors.transparent),
-          shape: WidgetStatePropertyAll(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          )),
-      onPressed: () {},
-      child: Image.asset(img));
+Widget iconButtonIWidget(String img, Color color, VoidCallback ontap) {
+  return CustomIconButton(
+    color: color.withOpacity(0.5),
+    img: img,
+    onPressed: ontap,
+  );
+
+
 }

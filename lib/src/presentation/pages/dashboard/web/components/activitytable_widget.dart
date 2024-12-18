@@ -2,6 +2,7 @@ import 'package:coloring_app_admin_panel/constants/color_constants.dart';
 import 'package:coloring_app_admin_panel/constants/font_family.dart';
 import 'package:coloring_app_admin_panel/constants/font_size.dart';
 import 'package:coloring_app_admin_panel/constants/size_constant.dart';
+import 'package:coloring_app_admin_panel/utils/CustomWidgets/custom_buttons.dart';
 import 'package:coloring_app_admin_panel/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -102,7 +103,7 @@ ListView buildListView(NavigationController dashboardController) {
                       width: 10,
                     ),
                     Flexible(
-                      child: Text(
+                      child:Text(
                         "John Doe",
                         maxLines: 1,
                         textAlign: TextAlign.left,
@@ -135,41 +136,25 @@ ListView buildListView(NavigationController dashboardController) {
             // Add spacing between columns
             Expanded(
                 flex: 1,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      shadowColor: AppColors.transparent,
-                      overlayColor: AppColors.transparent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-
-                      padding: const EdgeInsets.only(
-                          top: 10,bottom: 15, right: 10,left: 10),
-                      backgroundColor: AppColors.brightblue.withOpacity(0.2),
-                    ),
-                    onPressed: () {
+                child: CustomTextIconButton(
+                    onPressed: (){
                       dashboardController.changePage(AppRoutes.usersdetail);
                     },
-                    child: Wrap(
-                      alignment: WrapAlignment.center,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      runAlignment: WrapAlignment.center,
-                      runSpacing: 10,
-                      spacing: 10,
-                      children: [
-                        Center(
-                          child: const Text(
-                            "View Profile",
-                            style: TextStyle(
-                                fontSize: AppFontSize.bodysmall2,
-                                color: AppColors.black,
-                                fontWeight: AppFonts.regular),
-                          ),
-                        ),
-                        Image.asset("icons/png/newtab.png")
-                      ],
-                    ))),
+                    height:45 ,
+                    width: 115,
+                    text:  "View Profile",
+                    color: AppColors.brightblue,
+                    borderradius: 8,
+                    fontsize: AppFontSize.bodysmall2,
+                    textcolor:AppColors.black,
+                    opacity: 0.2,
+                    img: "icons/png/newtab.png"
+                )
+
+
+
+
+            ),
             // Reduced flex for actions
           ],
         ),

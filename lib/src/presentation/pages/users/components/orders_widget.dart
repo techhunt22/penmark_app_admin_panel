@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../../../constants/color_constants.dart';
 import '../../../../../constants/font_family.dart';
 import '../../../../../constants/font_size.dart';
+import '../../../../../utils/CustomWidgets/custom_buttons.dart';
 import '../../../../../utils/app_routes.dart';
 import '../../../controllers/routes/navigation_controller.dart';
 
@@ -62,41 +63,23 @@ class OrdersWidget extends StatelessWidget {
                 ),
                 trailing: Container(
                   constraints: const BoxConstraints(maxWidth: 120),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      shadowColor: AppColors.transparent,
-                      overlayColor: AppColors.transparent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: 10,
-                      ),
-                      backgroundColor:AppColors.brightblue.withOpacity(0.2),
-                    ),
-                    onPressed: (){
-                      dashboardController.changePage(AppRoutes.usersorderdetail,);
-                    },
-                    child: Wrap(
-                      alignment: WrapAlignment.center,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      runAlignment: WrapAlignment.center,
-                      spacing: 10,
-                      children: [
-                        Text(
-                          "View Details",
-                          style: const TextStyle(
-                            fontSize: AppFontSize.bodysmall2,
-                            color: AppColors.black,
-                            fontWeight: AppFonts.regular,
-                          ),
-                        ),
-                        Image.asset("icons/png/newtab.png")
-                      ],
-                    ),
+                  child: CustomTextIconButton(
+                      onPressed: (){
+                        dashboardController.changePage(AppRoutes.usersorderdetail,);
+                      },
+                      height: 45,
+                      width: 120,
+                      text:  "View Details",
+                      color:  AppColors.brightblue,
+                      borderradius: 8,
+                      fontsize: AppFontSize.bodysmall2,
+                      textcolor:AppColors.black,
+                      opacity: 0.2,
+                      img: "icons/png/newtab.png"
                   ),
+
+
+
                 ),
 
               ),
