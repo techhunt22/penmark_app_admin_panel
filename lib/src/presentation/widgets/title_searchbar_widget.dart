@@ -7,10 +7,11 @@ import '../../../constants/size_constant.dart';
 
 class TitleSearchbarWidget extends StatelessWidget {
   final String title;
+  final double spacing;
   final VoidCallback filter;
   final TextEditingController controller;
   final String? Function(String?)? validator;
-  const TitleSearchbarWidget({super.key, required this.controller, this.validator, required this.title, required this.filter});
+  const TitleSearchbarWidget({super.key, required this.controller, this.validator, required this.title, required this.filter, required this.spacing});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class TitleSearchbarWidget extends StatelessWidget {
           style: const TextStyle(
               fontSize: AppFontSize.displaysmall, fontWeight: AppFonts.medium),
         ),
-        const Spacer(),
+       SizedBox(width: spacing),
         SizedBox(
           width: 398,
           height: 58,

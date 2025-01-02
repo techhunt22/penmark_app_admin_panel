@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../../constants/padding.dart';
@@ -27,39 +26,31 @@ class _UsersScreenState extends State<UsersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
+    return Padding(
       padding: AppPadding.globalpadding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Align(
-              alignment: Alignment.centerRight,
-              child: ProfileNotificationWidget()),
-
+          Row(
+            children: [
+              SizedBox(width: 1347,),
+              ProfileNotificationWidget(),
+            ],
+          ),
           const SizedBox(height: gap3),
-
-
-
-
           TitleSearchbarWidget(
             controller: controller,
             title: "Manage Users",
-            filter: () {
-
-            },
+            spacing: 824,
+            filter: () {},
             validator: (p0) {
               return null;
             },
           ),
           const SizedBox(height: gap2),
-
           const UserTableWidget()
-
-
         ],
-
       ),
-
     );
   }
 }

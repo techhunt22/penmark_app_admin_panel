@@ -9,8 +9,7 @@ import '../../../utils/app_routes.dart';
 import '../controllers/routes/navigation_controller.dart';
 
 class NavigationSidebar extends StatefulWidget {
-  final bool isSidebaron ;
-  const NavigationSidebar({super.key, required this.isSidebaron});
+  const NavigationSidebar({super.key, });
 
   @override
   State<NavigationSidebar> createState() => _NavigationSidebarState();
@@ -73,10 +72,9 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
       width: 300,
       height: MediaQuery.sizeOf(context).height,
       decoration:  BoxDecoration(
-        borderRadius: widget.isSidebaron ? BorderRadiusDirectional.only(
-            topEnd: Radius.circular(35), bottomEnd: Radius.circular(35)):
-            BorderRadiusDirectional.only(
-            topStart: Radius.circular(35), bottomStart: Radius.circular(35)),
+        borderRadius:BorderRadiusDirectional.only(
+            topEnd: Radius.circular(35), bottomEnd: Radius.circular(35)),
+
         color: Color(0xFF1A1F37),
       ),
       child: Padding(
@@ -103,7 +101,7 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
                   icon: item['icon'],
                   index: index,
                   ontap: (index) {
-                    Scaffold.of(context).closeEndDrawer();
+
                     controller.updateSelectedIndex(index); // Update selected index
                     controller.changePage(item['route']);
                   },
@@ -112,14 +110,14 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
 
 
 
-
+              SizedBox(height: 280,),
               // Logout Item
               _buildNavItem(
                 label: logoutItem['label'],
                 icon: logoutItem['icon'],
                 index: navItems.length - 1,
                 ontap: (index) {
-                  Scaffold.of(context).closeEndDrawer();
+
                   controller.updateSelectedIndex(index); // Update selected index
                   controller.handleLogout(context); // Call logout method
                 },

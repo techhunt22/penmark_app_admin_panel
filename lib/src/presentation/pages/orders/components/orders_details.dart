@@ -30,9 +30,9 @@ class UserOrderDetailScreen extends StatelessWidget {
                 },
                 child: const Icon(Icons.arrow_back),
               ),
-              const Align(
-                  alignment: Alignment.centerRight,
-                  child: ProfileNotificationWidget()),
+
+                  SizedBox(width: 1323,),
+                  ProfileNotificationWidget(),
             ],
           ),
           const SizedBox(height: gap3),
@@ -48,7 +48,7 @@ class UserOrderDetailScreen extends StatelessWidget {
           ),
 
           Container(
-            width: 1500,
+            width: 1550,
 
             padding: EdgeInsets.symmetric(horizontal: 30,vertical: 25),
             decoration: BoxDecoration(

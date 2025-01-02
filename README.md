@@ -1,16 +1,13 @@
-# coloring_app_admin_panel
+# Penmark Admin Panel
 
-A new Flutter project.
+Admin Panel for Penmark Application.
 
-## Getting Started
+## Project Information
 
-This project is a starting point for a Flutter application.
+This is the admin panel of penmark application. It is developed using Flutter and is available only on Web.
 
-A few resources to get you started if this is your first Flutter project:
+Some key Features of this Admin Panel:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Clean Architecture
+- GetX StateManagement
+- Dio Client

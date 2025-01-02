@@ -3,8 +3,7 @@ import '../../../../constants/padding.dart';
 import '../../../../constants/size_constant.dart';
 import '../../widgets/profile_notification_widget.dart';
 import '../../widgets/title_searchbar_widget.dart';
-import '../dashboard/web/components/activitytable_widget.dart';
-
+import '../dashboard/components/activitytable_widget.dart';
 
 class RecentActivity extends StatefulWidget {
   const RecentActivity({super.key});
@@ -29,16 +28,19 @@ class _RecentActivityState extends State<RecentActivity> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header
-          const Align(
-              alignment: Alignment.centerRight,
-              child: ProfileNotificationWidget()),
+          Row(
+            children: [
+              SizedBox(width: 1347,),
+              ProfileNotificationWidget(),
+            ],
+          ),
           const SizedBox(height: gap3),
 
           TitleSearchbarWidget(
             controller: controller,
             title: "Recent Activity",
             filter: () {},
+            spacing: 815,
             validator: (p0) {
               return null;
             },

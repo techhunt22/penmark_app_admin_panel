@@ -17,7 +17,6 @@ import '../../pages/users/user_detail_screen.dart';
 import '../../pages/users/users_screen.dart';
 
 
-
 class NavigationController extends GetxController {
   final _currentRoute = ''.obs;
   final _previousRoute = ''.obs;

@@ -11,6 +11,8 @@ class PaginationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 1550,
+
       padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         color: AppColors.white,

@@ -32,13 +32,17 @@ class _TemplatesScreenState extends State<TemplatesScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Align(
-              alignment: Alignment.centerRight,
-              child: ProfileNotificationWidget()),
+          Row(
+            children: [
+              SizedBox(width: 1347,),
+              ProfileNotificationWidget(),
+            ],
+          ),
           const SizedBox(height: gap3),
           AddWidget(
             title: "Add New Template",
             btntext: "Add New Template",
+            spacing: 1015,
             ontap: () {
               showAddTemplateDialog(context, 'Add New Template');
             },
@@ -47,6 +51,7 @@ class _TemplatesScreenState extends State<TemplatesScreen> {
           TitleSearchbarWidget(
             controller: controller,
             title: "Manage Templates",
+            spacing: 731,
             filter: () {},
             validator: (p0) {
               return null;

@@ -21,6 +21,8 @@ class TemplateTableWidgets extends StatelessWidget {
       children: [
         Container(
           height: 75,
+          width: 1550,
+
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 25),
           decoration: BoxDecoration(
               color: AppColors.white, borderRadius: BorderRadius.circular(10)),
@@ -61,121 +63,126 @@ class TemplateTableWidgets extends StatelessWidget {
 
 }
 
-ListView buildListView() {
-  return ListView.builder(
-    itemCount: 6,
-    shrinkWrap: true,
-    itemBuilder: (context, index) {
-      return Container(
-        height: 75,
-        padding: const EdgeInsets.symmetric(horizontal: 25),
-        margin: const EdgeInsets.symmetric(vertical: 5),
-        decoration: BoxDecoration(
-            color: AppColors.white, borderRadius: BorderRadius.circular(10)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            const Expanded(
-                flex: 4,
-                child: Text(
-                  "Rose Blossom",
-                  maxLines: 4,
-                  textAlign: TextAlign.left,
-                  // Align text to the left
+Widget buildListView() {
+  return SizedBox(
+    width: 1550,
+    child: ListView.builder(
+      itemCount: 6,
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return Container(
+          height: 75,
+          width: 1550,
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          margin: const EdgeInsets.symmetric(vertical: 5),
+          decoration: BoxDecoration(
+              color: AppColors.white, borderRadius: BorderRadius.circular(10)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const Expanded(
+                  flex: 4,
+                  child: Text(
+                    "Rose Blossom",
+                    maxLines: 4,
+                    textAlign: TextAlign.left,
+                    // Align text to the left
 
-                  style: TextStyle(
-                      fontSize: AppFontSize.bodymedium,
-                      fontWeight: AppFonts.regular),
-                  overflow: TextOverflow.ellipsis,
-                )),
+                    style: TextStyle(
+                        fontSize: AppFontSize.bodymedium,
+                        fontWeight: AppFonts.regular),
+                    overflow: TextOverflow.ellipsis,
+                  )),
 
-            const SizedBox(width: gap),
-            // Add spacing between columns
+              const SizedBox(width: gap),
+              // Add spacing between columns
 
 
-            // Add spacing between columns
-            _buildContainer(
-                'Flowers',
-               4),
-            // Increased flex for description
-            const SizedBox(width: gap),
-            // Add spacing between columns
-            Expanded(
-                flex: 4,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    height: 36,
-                    constraints: const BoxConstraints(maxWidth: 108),
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                      color: AppColors.brightblue.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        "Active",
-                        style: TextStyle(
-                          fontSize: AppFontSize.bodysmall2,
-                          color: AppColors.black,
-                          fontWeight: AppFonts.regular,
+              // Add spacing between columns
+              _buildContainer(
+                  'Flowers',
+                 4),
+              // Increased flex for description
+              const SizedBox(width: gap),
+              // Add spacing between columns
+              Expanded(
+                  flex: 4,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      height: 36,
+                      constraints: const BoxConstraints(maxWidth: 108),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: AppColors.brightblue.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Active",
+                          style: TextStyle(
+                            fontSize: AppFontSize.bodysmall2,
+                            color: AppColors.black,
+                            fontWeight: AppFonts.regular,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-            ),
+              ),
 
 
 
 
-            const SizedBox(width: gap),
+              const SizedBox(width: gap),
 
 
-            // Add spacing between columns
-            Expanded(
-                flex: 4,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildActionButton(
-                        text: "Edit",
-                      img: "icons/png/newtab.png",
-                      clr: AppColors.purple,
-                      ontap: (){
-                        showAddTemplateDialog(context, 'Edit Template');
-
-                      }
-                    ),
-                    const SizedBox(width: 8),
-                    _buildActionButton(
-                        text: "Delete",
-                        clr: AppColors.orangesoft,
-                        img: "icons/png/deleteicon.png",
+              // Add spacing between columns
+              Expanded(
+                  flex: 4,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildActionButton(
+                          text: "Edit",
+                        img: "icons/png/newtab.png",
+                        clr: AppColors.purple,
                         ontap: (){
-                          showDeleteDialog(
-                              context: context,
-                              text: 'Edit Template',
-                            subtitle: 'Are you sure you want to delete This template? This action cannot be undone.',
-                            img: 'icons/png/deleteiconred.png',
-                            cancel: () {
-                              Navigator.pop(context);
-                            },
-                            save: () {
-
-                            },
-                          );
+                          showAddTemplateDialog(context, 'Edit Template');
 
                         }
-                    ),
-                  ],
-                )),
-            // Reduced flex for actions
-          ],
-        ),
-      );
-    },
+                      ),
+                      const SizedBox(width: 8),
+                      _buildActionButton(
+                          text: "Delete",
+                          clr: AppColors.orangesoft,
+                          img: "icons/png/deleteicon.png",
+                          ontap: (){
+                            showDeleteDialog(
+                                context: context,
+                                text: 'Edit Template',
+                              subtitle: 'Are you sure you want to delete This template? This action cannot be undone.',
+                              img: 'icons/png/deleteiconred.png',
+                              cancel: () {
+                                Navigator.pop(context);
+                              },
+                              save: () {
+
+                              },
+                            );
+
+                          }
+                      ),
+                    ],
+                  )),
+              // Reduced flex for actions
+            ],
+          ),
+        );
+      },
+    ),
   );
 }
 

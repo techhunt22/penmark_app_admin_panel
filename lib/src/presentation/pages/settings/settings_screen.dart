@@ -31,9 +31,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Align(
-              alignment: Alignment.centerRight,
-              child: ProfileNotificationWidget()),
+          Row(
+            children: [
+              SizedBox(width: 1347,),
+              ProfileNotificationWidget(),
+            ],
+          ),
           const SizedBox(height: gap3),
           Text(
             "Settings",

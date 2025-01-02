@@ -80,9 +80,10 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                 },
                 child: const Icon(Icons.arrow_back),
               ),
-              const Align(
-                  alignment: Alignment.centerRight,
-                  child: ProfileNotificationWidget()),
+
+                  SizedBox(width: 1323,),
+                  ProfileNotificationWidget(),
+
             ],
           ),
 
@@ -104,11 +105,15 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
             children: [
 
               recentactivityordersWidget(),
-
+              const SizedBox(
+                width: gap4,
+              ),
 
               userInfoWidget(),
 
-
+              const SizedBox(
+                width: gap4,
+              ),
               actionWidget(context),
             ],
           ),
@@ -121,6 +126,8 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
             controller: controller,
             title: recentactivity ? "Recent Activity" :
             "Orders",
+            spacing: recentactivity ? 810: 956,
+
             filter: () {
 
             },

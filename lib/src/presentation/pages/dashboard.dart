@@ -1,10 +1,7 @@
 import 'package:coloring_app_admin_panel/src/presentation/pages/sidebar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
 import '../../../constants/color_constants.dart';
-import '../../core/responsive_layout/responsive_widget.dart';
 import '../controllers/routes/navigation_controller.dart';
 
 class MainDashboardScreen extends StatelessWidget {
@@ -20,7 +17,6 @@ class MainDashboardScreen extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey, // Assign the GlobalKey to the Scaffold
       backgroundColor: AppColors.white2,
-      endDrawer: NavigationSidebar(isSidebaron: false), // Add the drawer
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -31,12 +27,32 @@ class MainDashboardScreen extends StatelessWidget {
             ),
           ),
           SafeArea(
-            child: ResponsiveLayout(
-              mobile: mobTabletWidget(controller, scaffoldKey), // Pass scaffoldKey here
-              tablet: mobTabletWidget(controller, scaffoldKey),
-              laptop: webLaptopWidget(controller),
-              web: webLaptopWidget(controller),
-            ),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 300,
+                    height: 1085,
+                    child: SingleChildScrollView(child: const NavigationSidebar()),
+                  ),
+                  Obx(() {
+                    return SizedBox(
+                      width: 1620,
+
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+
+                        child: SingleChildScrollView(
+                          child: controller.getContentWidget(controller.currentRoute),
+                        ),
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            )
           ),
         ],
       ),
@@ -45,54 +61,4 @@ class MainDashboardScreen extends StatelessWidget {
 
 
 }
-Widget webLaptopWidget(NavigationController controller) {
-  return Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      const NavigationSidebar(isSidebaron: true),
-      Obx(() {
-        return Expanded(
-          child: SingleChildScrollView(
-            child: controller.getContentWidget(controller.currentRoute),
-          ),
-        );
-      }),
-    ],
-  );
-}
 
-Widget mobTabletWidget(NavigationController controller, GlobalKey<ScaffoldState> scaffoldKey) {
-  return SingleChildScrollView(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Image.asset("icons/png/logo2.png"),
-              Builder(
-                builder: (context) {
-                  return IconButton(
-                    icon: SvgPicture.asset("icons/svg/menu.svg"),
-                    onPressed: () {
-                      // Use the passed scaffoldKey to open the drawer
-                      scaffoldKey.currentState?.openEndDrawer();
-                    },
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-
-        Obx(() {
-          return controller.getContentWidget(controller.currentRoute);
-        }),
-      ],
-    ),
-  );
-}

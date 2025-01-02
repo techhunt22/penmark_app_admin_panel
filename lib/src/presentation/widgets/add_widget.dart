@@ -8,7 +8,8 @@ class AddWidget extends StatelessWidget {
   final String title;
   final String btntext;
   final VoidCallback ontap;
-  const AddWidget({super.key, required this.title, required this.btntext, required this.ontap});
+  final double spacing;
+  const AddWidget({super.key, required this.title, required this.btntext, required this.ontap, required this.spacing});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class AddWidget extends StatelessWidget {
               fontSize: AppFontSize.headlinemedium,fontWeight: AppFonts.medium
           ),),
 
+          SizedBox(width: spacing),
 
           ElevatedButton(
               style: ButtonStyle(

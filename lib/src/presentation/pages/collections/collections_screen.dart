@@ -32,13 +32,17 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Align(
-              alignment: Alignment.centerRight,
-              child: ProfileNotificationWidget()),
+          Row(
+            children: [
+              SizedBox(width: 1347,),
+              ProfileNotificationWidget(),
+            ],
+          ),
           const SizedBox(height: gap3),
           AddWidget(
             title: "Add New Collection",
             btntext: "Add New Collection",
+            spacing: 1005,
             ontap: () {
               showCollectionDialog(context, 'Add New Collection');
             },
@@ -47,6 +51,8 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
           TitleSearchbarWidget(
             controller: controller,
             title: "Collections List",
+            spacing: 815,
+
             filter: () {},
             validator: (p0) {
               return null;

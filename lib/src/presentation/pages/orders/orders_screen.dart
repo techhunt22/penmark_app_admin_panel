@@ -38,14 +38,19 @@ class _OrdersScreenState extends State<OrdersScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Align(
-              alignment: Alignment.centerRight,
-              child: ProfileNotificationWidget()),
+          Row(
+            children: [
+              SizedBox(width: 1347,),
+              ProfileNotificationWidget(),
+            ],
+          ),
           const SizedBox(height: gap3),
           TitleSearchbarWidget(
             controller: controller,
             title: "Orders Management",
             filter: () {},
+            spacing: 704,
+
             validator: (p0) {
               return null;
             },
@@ -53,6 +58,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
           const SizedBox(height: gap2),
           Container(
             height: 75,
+            width: 1550,
+
             padding: const EdgeInsets.symmetric(horizontal: 25),
             decoration: BoxDecoration(
                 color: AppColors.white,
@@ -101,115 +108,121 @@ class _OrdersScreenState extends State<OrdersScreen> {
 }
 
 Widget buildListView(NavigationController dashboardController) {
-  return ListView.builder(
-    itemCount: 7,
-    shrinkWrap: true,
-    itemBuilder: (context, index) {
-      return Container(
-        height: 75,
-        padding: const EdgeInsets.symmetric(horizontal: 25),
-        margin: const EdgeInsets.symmetric(vertical: 5),
-        decoration: BoxDecoration(
-            color: AppColors.white, borderRadius: BorderRadius.circular(10)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            _buildContainer('1001', 2, false),
-            const SizedBox(width: gap),
-            const Expanded(
-                flex: 4,
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 19,
-                      backgroundColor: AppColors.purple,
-                      child: Text(
-                        "JD",
+  return SizedBox(
+    width: 1550,
+
+    child: ListView.builder(
+      itemCount: 7,
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return Container(
+          height: 75,
+          width: 1550,
+
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          margin: const EdgeInsets.symmetric(vertical: 5),
+          decoration: BoxDecoration(
+              color: AppColors.white, borderRadius: BorderRadius.circular(10)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              _buildContainer('1001', 2, false),
+              const SizedBox(width: gap),
+              const Expanded(
+                  flex: 4,
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 19,
+                        backgroundColor: AppColors.purple,
+                        child: Text(
+                          "JD",
+                          style: TextStyle(
+                              fontSize: AppFontSize.bodymedium,
+                              fontWeight: AppFonts.regular,
+                              color: AppColors.white),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "John Doe",
+                        maxLines: 4,
+                        textAlign: TextAlign.left,
+                        // Align text to the left
+
                         style: TextStyle(
                             fontSize: AppFontSize.bodymedium,
-                            fontWeight: AppFonts.regular,
-                            color: AppColors.white),
+                            fontWeight: AppFonts.regular),
                         overflow: TextOverflow.ellipsis,
                       ),
+                    ],
+                  )),
+              const SizedBox(width: gap),
+              _buildContainer('Nov 20, 2024', 2, false),
+              const SizedBox(width: gap),
+              _buildContainer('Rose Collection Print', 3, true),
+              const SizedBox(width: gap),
+              _buildContainer('1', 2, true),
+              const SizedBox(width: gap),
+              Expanded(
+                flex: 3,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    height: 36,
+                    width: 108,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                      color: AppColors.green.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "John Doe",
-                      maxLines: 4,
-                      textAlign: TextAlign.left,
-                      // Align text to the left
-
-                      style: TextStyle(
-                          fontSize: AppFontSize.bodymedium,
-                          fontWeight: AppFonts.regular),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                )),
-            const SizedBox(width: gap),
-            _buildContainer('Nov 20, 2024', 2, false),
-            const SizedBox(width: gap),
-            _buildContainer('Rose Collection Print', 3, true),
-            const SizedBox(width: gap),
-            _buildContainer('1', 2, true),
-            const SizedBox(width: gap),
-            Expanded(
-              flex: 3,
-              child: Align(
-                alignment: Alignment.center,
-                child: Container(
-                  height: 36,
-                  constraints: const BoxConstraints(maxWidth: 108),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    color: AppColors.green.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "Completed",
-                      style: TextStyle(
-                        fontSize: AppFontSize.bodysmall2,
-                        color: AppColors.black,
-                        fontWeight: AppFonts.regular,
+                    child: const Center(
+                      child: Text(
+                        "Completed",
+                        style: TextStyle(
+                          fontSize: AppFontSize.bodysmall2,
+                          color: AppColors.black,
+                          fontWeight: AppFonts.regular,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(width: gap),
-            Expanded(
-              flex: 3,
-              child: Align(
-                alignment: Alignment.center,
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 120),
-                  child: CustomTextIconButton(
-                      onPressed: () {
-                        dashboardController.changePage(
-                          AppRoutes.usersorderdetail,
-                        );
-                      },
-                      height: 45,
-                      width: 120,
-                      text: "View",
-                      color: AppColors.brightblue,
-                      borderradius: 8,
-                      fontsize: AppFontSize.bodysmall2,
-                      textcolor: AppColors.black,
-                      opacity: 0.2,
-                      img: "icons/png/newtab.png"),
+              const SizedBox(width: gap),
+              Expanded(
+                flex: 3,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: 120,
+                    child: CustomTextIconButton(
+                        onPressed: () {
+                          dashboardController.changePage(
+                            AppRoutes.usersorderdetail,
+                          );
+                        },
+                        height: 45,
+                        width: 120,
+                        text: "View",
+                        color: AppColors.brightblue,
+                        borderradius: 8,
+                        fontsize: AppFontSize.bodysmall2,
+                        textcolor: AppColors.black,
+                        opacity: 0.2,
+                        img: "icons/png/newtab.png"),
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      );
-    },
+            ],
+          ),
+        );
+      },
+    ),
   );
 }
 
