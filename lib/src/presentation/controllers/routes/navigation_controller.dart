@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../../utils/CustomWidgets/error_screen.dart';
 import '../../../../utils/app_routes.dart';
+import '../../../core/session_storage.dart';
 import '../../pages/auth/auth_screen.dart';
 import '../../pages/collections/collections_screen.dart';
 import '../../pages/dashboard/dashboard_widget.dart';
@@ -69,6 +70,8 @@ class NavigationController extends GetxController {
 
   // Modify changePage to track history
   void changePage(String route) {
+    SessionManager.instance.setString('last_visited_route', route);
+
     try {
       if (AppRoutes.isSidebarRoute(route)) {
         _previousRoute.value = '';
@@ -78,6 +81,7 @@ class NavigationController extends GetxController {
         _routeHistory.add(_currentRoute.value); // Add to history
       }
       _currentRoute.value = route;
+      selectedIndex.value = AppRoutes.getSidebarIndex(route);
 
       // Optional: Print debug information
       _printDebugInfo();
@@ -144,7 +148,7 @@ class NavigationController extends GetxController {
   void _printDebugInfo() {
     if (kDebugMode) {
       print('''
-    ======= Dashboard Controller State =======
+    ======= Navigation Controller State =======
     Current Route: ${_currentRoute.value}
     Previous Route: ${_previousRoute.value}
     Cached Routes: ${getCachedRoutes()}
@@ -176,8 +180,11 @@ class NavigationController extends GetxController {
       // Reset routes
       _currentRoute.value = '';
       _previousRoute.value = '';
+      SessionManager.instance.clearAllSessions();
+
       // Navigate to login
-      await  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AuthScreen(),));
+      await  Get.offAll(()=>AuthScreen());
+
 
     } catch (e) {
       if (kDebugMode) {

@@ -1,7 +1,7 @@
 class AuthEntity {
   bool success;
   String message;
-  AuthData data;
+  AuthEntityData data;
 
   AuthEntity({
     required this.success,
@@ -11,11 +11,11 @@ class AuthEntity {
 
 }
 
-class AuthData {
+class AuthEntityData {
   String accessToken;
   String refreshToken;
 
-  AuthData({
+  AuthEntityData({
     required this.accessToken,
     required this.refreshToken,
   });

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:coloring_app_admin_panel/src/core/service/handle_response.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -12,6 +11,7 @@ class ApiService {
   final String baseUrl = ListAPI.baseUrl;
   final Dio dio = Dio();
 
+
 // Step 1: Singleton instance
   static final ApiService _instance = ApiService._internal();
 
@@ -19,11 +19,15 @@ class ApiService {
   ApiService._internal() {
     dio.options.baseUrl = baseUrl;
     dio.options.headers['Content-Type'] = 'application/json';
+
     dio.options.connectTimeout =
         const Duration(seconds: 10); // 10 seconds timeout
     dio.options.receiveTimeout = const Duration(seconds: 10);
 
-    dio.interceptors.add(InterceptorsWrapper(
+    dio.interceptors.add(
+
+        InterceptorsWrapper(
+
       onRequest: (options, handler) {
         if (kDebugMode) {
           print('Request: ${options.uri}');
@@ -59,7 +63,7 @@ class ApiService {
     Map<String, dynamic>? headers,
     Map<String, dynamic>? queryParams,
   }) async {
-    await _checkConnectionAndThrow(); // Using the new method
+    //await _checkConnectionAndThrow(); // Using the new method
 
     try {
       Response response = await dio.get(
@@ -84,17 +88,21 @@ class ApiService {
     Map<String, dynamic>? headers,
     dynamic body,
   }) async {
-    await _checkConnectionAndThrow(); // Using the new method
-        try {
+    //await _checkConnectionAndThrow(); // Using the new method
+    try {
       Response response = await dio.post(
         endpoint,
         options: Options(
           headers: headers,
         ),
+
         data: body,
+
       );
+
       return handleResponse(response);
-    } catch (e) {
+    }
+    catch (e) {
       throw handleError(e);
     }
   }
@@ -107,7 +115,7 @@ class ApiService {
     String endpoint, {
     Map<String, dynamic>? headers,
   }) async {
-    await _checkConnectionAndThrow(); // Using the new method
+    //await _checkConnectionAndThrow(); // Using the new method
 
 
     try {
@@ -130,7 +138,7 @@ class ApiService {
     Map<String, dynamic>? headers,
     dynamic body,
   }) async {
-    await _checkConnectionAndThrow(); // Using the new method
+    //await _checkConnectionAndThrow(); // Using the new method
 
 
     try {
@@ -145,28 +153,28 @@ class ApiService {
     }
   }
 
-  Future<void> _checkConnectionAndThrow() async {
-    if (!await _checkConnection()) {
-      throw ApiException(
-        message:
-            'No internet connection. Please check your network and try again.',
-      );
-    }
-  }
+  // Future<void> _checkConnectionAndThrow() async {
+  //   if (!await _checkConnection()) {
+  //     throw ApiException(
+  //       message:
+  //           'No internet connection. Please check your network and try again.',
+  //     );
+  //   }
+  // }
 
-  Future<bool> _checkConnection() async {
-    try {
-      final result = await InternetAddress.lookup('google.com');
-      return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
-    } on SocketException catch (_) {
-      return false;
-    }
-  }
+  // Future<bool> _checkConnection() async {
+  //   try {
+  //     final result = await InternetAddress.lookup('google.com');
+  //     return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
+  //   } on SocketException catch (_) {
+  //     return false;
+  //   }
+  // }
 
   Future<T> retry<T>(Future<T> Function() function,
       {int maxRetries = 3}) async {
     for (int attempt = 0; attempt <= maxRetries; attempt++) {
-      await _checkConnectionAndThrow(); // Using the new method
+      //await _checkConnectionAndThrow(); // Using the new method
 
 
       try {

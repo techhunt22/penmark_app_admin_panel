@@ -1,16 +1,17 @@
-import 'package:coloring_app_admin_panel/src/presentation/controllers/routes/navigation_controller.dart';
-import 'package:coloring_app_admin_panel/src/presentation/pages/dashboard.dart';
+import 'package:coloring_app_admin_panel/src/core/binding.dart';
+import 'package:coloring_app_admin_panel/src/presentation/pages/auth/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'constants/color_constants.dart';
 import 'constants/font_family.dart';
 
 
-
 void main() {
 
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
-  Get.put(NavigationController());
+
+
 }
 
 class MyApp extends StatelessWidget {
@@ -20,21 +21,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
-
+      title: 'Penmark',
       theme: ThemeData(
         scaffoldBackgroundColor: AppColors.white,
+        progressIndicatorTheme:
+            ProgressIndicatorThemeData(color: AppColors.white),
         textSelectionTheme: TextSelectionThemeData(
-          selectionColor: AppColors.brightblue.withOpacity(0.2),
+          selectionColor: AppColors.brightblue.withValues(alpha:0.2),
           cursorColor: AppColors.black,
-          selectionHandleColor: AppColors.brightblue, // Color of the selection handles
+          selectionHandleColor:
+              AppColors.brightblue, // Color of the selection handles
         ),
         fontFamily: AppFonts.poppins,
         cardColor: AppColors.white,
         useMaterial3: true,
       ),
-      home: const MainDashboardScreen(),
+      initialBinding: InitialBinding(),
+
+      initialRoute: '/auth', // Make sure the initial route is correct
+      getPages: [
+        GetPage(name: '/auth', page: () => AuthScreen()),
+        GetPage(name: '/dashboard', page: () => MainDashboardScreen()), // Add this route
+        // Add other routes here as needed
+      ],
     );
   }
 }
-
