@@ -16,8 +16,10 @@ class NavigationSidebar extends StatefulWidget {
 }
 
 class _NavigationSidebarState extends State<NavigationSidebar> {
+
   int? _hoveredIndex;
   final controller = Get.find<NavigationController>();
+
 
   final List<Map<String, dynamic>> navItems = [
     {
@@ -150,7 +152,7 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
             borderRadius: BorderRadius.circular(8),
             color: isHovered || isSelected
                 ? AppColors.yellowvibrant
-                : AppColors.white.withOpacity(0.1)),
+                : AppColors.white.withValues(alpha:0.1)),
 
         child: ListTile(
           shape: RoundedRectangleBorder(

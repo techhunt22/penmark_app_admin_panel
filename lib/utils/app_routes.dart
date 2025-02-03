@@ -28,4 +28,24 @@ class AppRoutes {
       settings,
     ].contains(route);
   }
+  static int getSidebarIndex(String route) {
+    switch (route) {
+      case dashboard:
+        return 0;
+      case templates:
+        return 1;
+      case collections:
+        return 2;
+      case recentActivity:
+        return 3;
+      case users:
+        return 4;
+      case orders:
+        return 5;
+      case settings:
+        return 6;
+      default:
+        return -1; // Default index for non-sidebar routes
+    }
+  }
 }
