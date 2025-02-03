@@ -1,5 +1,6 @@
 import 'package:coloring_app_admin_panel/src/core/binding.dart';
 import 'package:coloring_app_admin_panel/src/presentation/pages/auth/auth_screen.dart';
+import 'package:coloring_app_admin_panel/src/presentation/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'constants/color_constants.dart';
