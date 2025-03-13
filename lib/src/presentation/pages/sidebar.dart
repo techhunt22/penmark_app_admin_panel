@@ -104,7 +104,7 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
                   index: index,
                   ontap: (index) {
 
-                    controller.updateSelectedIndex(index); // Update selected index
+                    //controller.selectedIndex.value= index; // Update selected index
                     controller.changePage(item['route']);
                   },
                 );
@@ -120,7 +120,7 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
                 index: navItems.length - 1,
                 ontap: (index) {
 
-                  controller.updateSelectedIndex(index); // Update selected index
+                  //controller.selectedIndex.value= index; // Update selected index
                   controller.handleLogout(context); // Call logout method
                 },
               ),
@@ -140,7 +140,7 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
     required void Function(int) ontap,
   }) {
     final bool isHovered = _hoveredIndex == index;
-    final bool isSelected = controller.selectedIndex.value == index;
+    //final bool isSelected = controller.selectedIndex.value == index;
 
     return MouseRegion(
       onEnter: (_) => setState(() => _hoveredIndex = index),
@@ -150,7 +150,7 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: isHovered || isSelected
+            color: isHovered
                 ? AppColors.yellowvibrant
                 : AppColors.white.withValues(alpha:0.1)),
 
@@ -162,7 +162,7 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
           minVerticalPadding: 16,
           leading: Image.asset(
             icon,
-            color: isHovered || isSelected ? AppColors.black : AppColors.white,
+            color: isHovered  ? AppColors.black : AppColors.white,
             height: 20,
             width: 20,
             filterQuality: FilterQuality.high,
@@ -173,7 +173,7 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
             label,
             style: TextStyle(
                 color:
-                    isHovered || isSelected ? AppColors.black : AppColors.white,
+                    isHovered  ? AppColors.black : AppColors.white,
                 fontWeight: AppFonts.medium,
 
                 fontSize: AppFontSize.titlesmall),

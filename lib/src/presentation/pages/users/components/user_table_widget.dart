@@ -9,7 +9,6 @@ import '../../../../../utils/CustomWidgets/custom_buttons.dart';
 import '../../../../../utils/app_routes.dart';
 import '../../../controllers/routes/navigation_controller.dart';
 import '../../../widgets/pagination_widget.dart';
-import '../../templates/components/dialog_widget.dart';
 
 
 
@@ -144,7 +143,7 @@ Widget buildListView(NavigationController dashboardController) {
                     constraints: const BoxConstraints(maxWidth: 108),
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
-                      color: AppColors.brightblue.withOpacity(0.5),
+                      color: AppColors.brightblue.withValues(alpha:0.5),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Center(
@@ -274,12 +273,6 @@ Widget _buildActionButton({required String text,required VoidCallback ontap, req
   );
 }
 
-void showAddTemplateDialog(BuildContext context, String text) {
-  showDialog(
-    context: context,
-    builder: (context) => AddTemplateDialog(title: text,),
-  );
-}
 
 
 

@@ -59,7 +59,7 @@ class CustomTextField extends StatelessWidget {
             ),
             filled: true,
             contentPadding: const EdgeInsets.symmetric(vertical: 25),
-            fillColor: AppColors.white.withOpacity(0.1),
+            fillColor: AppColors.white.withValues(alpha:0.1),
             hintText: hinttext,
             prefixIcon: icon,
             hintStyle: const TextStyle(
@@ -75,6 +75,14 @@ class CustomTextField extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: const BorderSide(color: AppColors.white, width: 1),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: const BorderSide(color: AppColors.red, width: 1),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: const BorderSide(color: AppColors.red, width: 1),
             ),
           ),
         ),
@@ -152,7 +160,7 @@ class CustomPasswordFieldState extends State<CustomPasswordField> {
               maxWidth: 506,
             ),
             contentPadding: const EdgeInsets.symmetric(vertical: 25),
-            fillColor: AppColors.white.withOpacity(0.1),
+            fillColor: AppColors.white.withValues(alpha:0.1),
             hintText: widget.hinttext,
             prefixIcon: widget.icon,
             hintStyle: const TextStyle(
@@ -176,6 +184,14 @@ class CustomPasswordFieldState extends State<CustomPasswordField> {
                 color: AppColors.gray,
               ),
               onPressed: _togglePasswordVisibility,
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: const BorderSide(color: AppColors.red, width: 1),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: const BorderSide(color: AppColors.red, width: 1),
             ),
           ),
         ),

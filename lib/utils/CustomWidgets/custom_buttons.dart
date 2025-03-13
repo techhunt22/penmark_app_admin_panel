@@ -32,7 +32,7 @@ class CustomButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderradius),
         ),
-        backgroundColor: color.withOpacity(opacity),
+        backgroundColor: color.withValues(alpha:opacity),
       ),
 
       child: isLoading
@@ -82,7 +82,7 @@ class CustomTextIconButton extends StatelessWidget {
             vertical: 10,
             horizontal: 10,
           ),
-          backgroundColor: color.withOpacity(opacity),
+          backgroundColor: color.withValues(alpha:opacity),
         ),
         onPressed: onPressed,
         child: Wrap(

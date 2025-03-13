@@ -26,7 +26,7 @@ class AppColors {
   static const Color  red = Colors.red;
   static const Color transparent = Colors.transparent;
 
-  static Color greylight =  const Color(0xffFFFFFF).withOpacity(0.65);
+  static Color greylight =  const Color(0xffFFFFFF).withValues(alpha: 0.65);
 
 
 }

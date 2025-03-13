@@ -29,7 +29,7 @@ class StatsCardWeb extends StatelessWidget {
       height: height,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.5),
+        color: color.withValues(alpha:0.5),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Wrap(

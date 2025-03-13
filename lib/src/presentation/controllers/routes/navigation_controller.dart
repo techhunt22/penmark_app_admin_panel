@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import '../../../../utils/CustomWidgets/error_screen.dart';
 import '../../../../utils/app_routes.dart';
 import '../../../core/session_storage.dart';
-import '../../pages/auth/auth_screen.dart';
 import '../../pages/collections/collections_screen.dart';
 import '../../pages/dashboard/dashboard_widget.dart';
 import '../../pages/orders/components/orders_details.dart';
@@ -26,12 +25,36 @@ class NavigationController extends GetxController {
   String get currentRoute => _currentRoute.value;
   String get previousRoute => _previousRoute.value;
 
-  var selectedIndex = 0.obs;  // Observable selected index
+  //var selectedIndex = 0.obs;  // Observable selected index
 
-  // Method to update the selected index
-  void updateSelectedIndex(int index) {
-    selectedIndex.value = index;
+// Initialize with dashboard route
+  @override
+  void onInit() {
+    super.onInit();
+    _currentRoute.value = AppRoutes.dashboard; // Set initial route
+
+      // Load route history from session storage (if available)
+    List<String> savedRoutes = SessionManager.instance.getSessionList('route_history');
+    if (savedRoutes.isNotEmpty) {
+      _routeHistory.clear();
+      _routeHistory.addAll(savedRoutes);
+    }
+
+    // Load the last visited route from session storage
+    String? lastVisitedRoute = SessionManager.instance.getSession('last_visited_route');
+    if (lastVisitedRoute != null && lastVisitedRoute.isNotEmpty) {
+      _currentRoute.value = lastVisitedRoute;
+    } else {
+      _currentRoute.value = AppRoutes.dashboard; // Default to dashboard if no route found
+    }
+
+    _previousRoute.value = _routeHistory.isNotEmpty ? _routeHistory.last : '';
   }
+ 
+
+
+
+
 
 
   Widget getContentWidget(String route) {
@@ -81,8 +104,9 @@ class NavigationController extends GetxController {
         _routeHistory.add(_currentRoute.value); // Add to history
       }
       _currentRoute.value = route;
-      selectedIndex.value = AppRoutes.getSidebarIndex(route);
+      //selectedIndex.value = AppRoutes.getSidebarIndex(route, );
 
+      SessionManager.instance.setStringList('route_history', _routeHistory);
       // Optional: Print debug information
       _printDebugInfo();
     } catch (e) {
@@ -95,33 +119,29 @@ class NavigationController extends GetxController {
 
   void goBack() {
     if (_routeHistory.isNotEmpty) {
-      // Pop the last route from the history stack
-      final previousRoute = _routeHistory.removeLast();
+      // Ensure we are not popping to the same route
+      if (_routeHistory.last == _currentRoute.value) {
+        _routeHistory.removeLast(); // Remove duplicate if exists
+      }
 
-      // Update current and previous routes
-      _previousRoute.value = _currentRoute.value;
-      _currentRoute.value = previousRoute;
+      if (_routeHistory.isNotEmpty) {
+        // Pop the last route from the history stack
+        final previousRoute = _routeHistory.removeLast();
+        _previousRoute.value = _currentRoute.value;
+        _currentRoute.value = previousRoute;
 
-      // Print debug info
-      _printDebugInfo();
+        SessionManager.instance.setStringList('route_history', _routeHistory);
+        _printDebugInfo();
+      } else {
+        Get.snackbar('Navigation', 'No previous page to go back to', snackPosition: SnackPosition.BOTTOM);
+      }
     } else {
-      // Optional: Show message when there's no previous route
-      Get.snackbar(
-        'Navigation',
-        'No previous page to go back to',
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar('Navigation', 'No previous page to go back to', snackPosition: SnackPosition.BOTTOM);
     }
   }
 
 
 
-// Initialize with dashboard route
-  @override
-  void onInit() {
-    super.onInit();
-    _currentRoute.value = AppRoutes.dashboard; // Set initial route
-  }
 
   // Method to get all cached routes
   List<String> getCachedRoutes() {
@@ -183,7 +203,7 @@ class NavigationController extends GetxController {
       SessionManager.instance.clearAllSessions();
 
       // Navigate to login
-      await  Get.offAll(()=>AuthScreen());
+      await Get.offAllNamed(AppRoutes.auth);
 
 
     } catch (e) {

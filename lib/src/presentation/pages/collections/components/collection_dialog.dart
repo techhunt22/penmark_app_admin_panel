@@ -59,7 +59,7 @@ class _CollectionDialogState extends State<CollectionDialog> {
                     fontWeight: AppFonts.regular,
                   ),
                   filled: true,
-                  fillColor: AppColors.gray.withOpacity(0.1),
+                  fillColor: AppColors.gray.withValues(alpha:0.1),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide.none,
@@ -90,7 +90,7 @@ class _CollectionDialogState extends State<CollectionDialog> {
                 child: Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: AppColors.gray.withOpacity(0.1),
+                    color: AppColors.gray.withValues(alpha:0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Row(

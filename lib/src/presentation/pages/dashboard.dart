@@ -21,10 +21,11 @@ class _MainDashboardScreenState extends State<MainDashboardScreen> {
     super.initState();
     String? lastVisitedRoute = SessionManager.instance.getSession('last_visited_route');
 
-    if (lastVisitedRoute != null && lastVisitedRoute.isNotEmpty) {
+
+    if (lastVisitedRoute != null && lastVisitedRoute.isNotEmpty ) {
       controller.changePage(lastVisitedRoute); // Use the controller to update the route
 
-    } else {
+    }  else {
       controller.changePage(AppRoutes.dashboard); // Default to dashboard if no route found
     }
   }

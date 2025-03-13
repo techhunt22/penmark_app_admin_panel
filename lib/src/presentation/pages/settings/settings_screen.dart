@@ -492,7 +492,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
 Widget iconButtonIWidget(String img, Color color, VoidCallback ontap) {
   return CustomIconButton(
-    color: color.withOpacity(0.5),
+    color: color.withValues(alpha:0.5),
     img: img,
     onPressed: ontap,
   );

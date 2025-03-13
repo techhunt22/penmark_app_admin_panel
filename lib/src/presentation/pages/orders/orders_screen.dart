@@ -177,7 +177,7 @@ Widget buildListView(NavigationController dashboardController) {
                     width: 108,
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
-                      color: AppColors.green.withOpacity(0.2),
+                      color: AppColors.green.withValues(alpha:0.2),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Center(

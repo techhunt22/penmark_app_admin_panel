@@ -43,7 +43,7 @@ class OrdersWidget extends StatelessWidget {
                   leading: Container(
                     padding: EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: AppColors.yellowvibrant.withOpacity(0.5),
+                        color: AppColors.yellowvibrant.withValues(alpha:0.5),
                         borderRadius: BorderRadiusDirectional.circular(10)
                       ),
                       child: Text("Order # 102410")),

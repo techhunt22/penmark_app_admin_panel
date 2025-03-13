@@ -219,7 +219,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                                   ),
                                   Switch(
                                     activeColor: AppColors.white2,
-                                     inactiveTrackColor: AppColors.white2.withOpacity(0.8),
+                                     inactiveTrackColor: AppColors.white2.withValues(alpha:0.8),
                                      inactiveThumbColor: AppColors.white2,
                                      trackOutlineColor: WidgetStatePropertyAll(AppColors.white2),
                                     value: _isEnabled,
@@ -344,7 +344,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                               width: 108,
                               decoration: BoxDecoration(
                                   color:
-                                      AppColors.brightblue.withOpacity(0.5),
+                                      AppColors.brightblue.withValues(alpha: 0.5),
                                   borderRadius:
                                       BorderRadiusDirectional.circular(8)),
                               child: Center(child: Text("Active")),

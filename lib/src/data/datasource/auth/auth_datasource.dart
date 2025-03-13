@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 
 import '../../../core/apis/api_url.dart';
 import '../../../core/service/service.dart';
@@ -10,7 +11,7 @@ abstract class AuthApiData {
 }
 
 class AuthApiDataImpl implements AuthApiData {
-  final ApiService _apiService = ApiService();
+  final _apiService = Get.find<ApiService>(); // ✅ Gets the singleton instance
 
   @override
   Future<AuthModel> login(String email, String password) async {

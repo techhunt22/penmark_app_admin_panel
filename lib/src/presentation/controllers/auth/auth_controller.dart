@@ -35,9 +35,7 @@ class AuthController extends GetxController {
         backgroundColor: AppColors.primarycolor,
       );
 
-      Future.delayed(const Duration(seconds: 2), () {
-        Get.offAllNamed('/dashboard');
-      });
+     await Get.offAllNamed('/dashboard');
 
 
       // On success, update the authEntity

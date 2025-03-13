@@ -8,8 +8,6 @@ import '../../../../../utils/CustomWidgets/custom_buttons.dart';
 import '../../../widgets/delete_dialog.dart';
 import '../../../widgets/pagination_widget.dart';
 
-import 'dialog_widget.dart';
-
 
 class TemplateTableWidgets extends StatelessWidget {
 
@@ -115,7 +113,7 @@ Widget buildListView() {
                       constraints: const BoxConstraints(maxWidth: 108),
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
-                        color: AppColors.brightblue.withOpacity(0.5),
+                        color: AppColors.brightblue.withValues(alpha:0.5),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Center(
@@ -150,7 +148,7 @@ Widget buildListView() {
                         img: "icons/png/newtab.png",
                         clr: AppColors.purple,
                         ontap: (){
-                          showAddTemplateDialog(context, 'Edit Template');
+                          //showAddTemplateDialog(context, 'Edit Template');
 
                         }
                       ),
@@ -241,12 +239,12 @@ Widget _buildActionButton({required String text,required VoidCallback ontap, req
   );
 }
 
-void showAddTemplateDialog(BuildContext context, String text) {
-  showDialog(
-    context: context,
-    builder: (context) => AddTemplateDialog(title: text,),
-  );
-}
+// void showAddTemplateDialog(BuildContext context, String text) {
+//   showDialog(
+//     context: context,
+//     builder: (context) => AddTemplateDialog(title: text,),
+//   );
+// }
 
 void showDeleteDialog({required BuildContext context, required VoidCallback cancel,required VoidCallback save,required String text,required String subtitle,required String img}) {
   showDialog(

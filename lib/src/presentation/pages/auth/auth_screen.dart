@@ -10,6 +10,7 @@ import '../../../../constants/font_size.dart';
 import '../../../../constants/size_constant.dart';
 import '../../../../utils/CustomWidgets/custom_buttons.dart';
 import '../../../../utils/CustomWidgets/custom_textfields.dart';
+import '../../../../utils/app_routes.dart';
 import '../../../core/jwt_token_decryption.dart';
 import '../../controllers/auth/auth_controller.dart';
 
@@ -37,7 +38,7 @@ class _AuthScreenState extends State<AuthScreen> {
     String tokenStatus = await JwtHelper.validateToken();
 
     if (tokenStatus == "Token is valid.") {
-      Get.offAllNamed('/');
+      Get.offAllNamed(AppRoutes.dashboard);
     }
   }
 

@@ -45,7 +45,7 @@ class PaginationWidget extends StatelessWidget {
 
 Widget buildPaginationButton({required IconData icon}) {
   return CircleAvatar(
-    backgroundColor: AppColors.brightblue.withOpacity(0.1),
+    backgroundColor: AppColors.brightblue.withValues(alpha:0.1),
     radius: 19,
     child:  Icon(icon, size: 17,),
   );
@@ -57,7 +57,7 @@ Widget buildPageNumber(String number, {bool isActive = false}) {
     padding: const EdgeInsetsDirectional.symmetric(horizontal: 15,vertical: 10),
     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     decoration: BoxDecoration(
-        color: isActive ? AppColors.brightblue.withOpacity(0.1) : Colors.transparent,
+        color: isActive ? AppColors.brightblue.withValues(alpha:0.1) : Colors.transparent,
         borderRadius: BorderRadiusDirectional.circular(6)
     ),
     child: Text(number, style: const TextStyle(fontSize: AppFontSize.bodysmall2, fontWeight: AppFonts.regular),),

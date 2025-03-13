@@ -40,6 +40,10 @@ class JwtHelper {
           utf8.decode(base64Url.decode(base64Url.normalize(parts[1]))));
 
       if (kDebugMode) {
+        print("Raw Payload: $token");
+
+      }
+      if (kDebugMode) {
         print("Decoded Payload: $payload");
       }
 

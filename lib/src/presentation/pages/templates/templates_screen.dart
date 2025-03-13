@@ -6,7 +6,6 @@ import '../../widgets/add_widget.dart';
 import '../../widgets/profile_notification_widget.dart';
 import '../../widgets/title_searchbar_widget.dart';
 
-import 'components/dialog_widget.dart';
 import 'components/template_table_widgets.dart';
 
 class TemplatesScreen extends StatefulWidget {
@@ -18,6 +17,7 @@ class TemplatesScreen extends StatefulWidget {
 
 class _TemplatesScreenState extends State<TemplatesScreen> {
   final TextEditingController controller = TextEditingController();
+  final TextEditingController templates = TextEditingController();
 
   @override
   void dispose() {
@@ -44,7 +44,22 @@ class _TemplatesScreenState extends State<TemplatesScreen> {
             btntext: "Add New Template",
             spacing: 1015,
             ontap: () {
-              showAddTemplateDialog(context, 'Add New Template');
+
+              // showAddTemplateDialog(
+              //   context: context,
+              //   collections: collections,
+              //   title: "Add New Template",
+              //   uploadFile: () {
+              //
+              //     print("Upload file clicked");
+              //   },
+              //   onSubmit: (String templateName, bool isActive) {
+              //     print("Template Name: $templateName, Status: $isActive");
+              //     // You can now save it to your database or API
+              //     Get.back();
+              //   },
+              // );
+
             },
           ),
           const SizedBox(height: gap3),
@@ -65,11 +80,4 @@ class _TemplatesScreenState extends State<TemplatesScreen> {
   }
 }
 
-void showAddTemplateDialog(BuildContext context, String text) {
-  showDialog(
-    context: context,
-    builder: (context) => AddTemplateDialog(
-      title: text,
-    ),
-  );
-}
+

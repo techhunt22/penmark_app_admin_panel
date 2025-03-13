@@ -113,7 +113,7 @@ Widget buildListView() {
                     constraints: const BoxConstraints(maxWidth: 108),
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
-                      color: AppColors.brightblue.withOpacity(0.5),
+                      color: AppColors.brightblue.withValues(alpha:0.5),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Center(

@@ -31,7 +31,7 @@ class ActionCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-              color: AppColors.lightgray.withOpacity(0.1),
+              color: AppColors.lightgray.withValues(alpha:0.1),
               spreadRadius: 1,
               blurRadius: 5,
             ),
