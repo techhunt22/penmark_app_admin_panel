@@ -33,7 +33,7 @@ class NavigationController extends GetxController {
     super.onInit();
     _currentRoute.value = AppRoutes.dashboard; // Set initial route
 
-      // Load route history from session storage (if available)
+    // Load route history from session storage (if available)
     List<String> savedRoutes = SessionManager.instance.getSessionList('route_history');
     if (savedRoutes.isNotEmpty) {
       _routeHistory.clear();
@@ -50,7 +50,7 @@ class NavigationController extends GetxController {
 
     _previousRoute.value = _routeHistory.isNotEmpty ? _routeHistory.last : '';
   }
- 
+
 
 
 
@@ -67,14 +67,14 @@ class NavigationController extends GetxController {
           AppRoutes.collections => const CollectionsScreen(key: ValueKey('collections')),
           AppRoutes.users => const UsersScreen(key: ValueKey('users')),
           AppRoutes.usersdetail => const UserDetailScreen(key: ValueKey('usersdetail')),
-          AppRoutes.usersorderdetail => const UserOrderDetailScreen(key: ValueKey('usersorderdetail')),
+          AppRoutes.usersorderdetail => const OrderDetailScreen(key: ValueKey('usersorderdetail')),
           AppRoutes.orders => const OrdersScreen(key: ValueKey('orders')),
           AppRoutes.settings => const SettingsScreen(key: ValueKey('settings')),
 
-         // Additional Content (not in sidebar)
+        // Additional Content (not in sidebar)
           AppRoutes.recentActivity => const RecentActivity(key: ValueKey('recent_activity')),
-          // AppRoutes.analytics => const RecentActivity(key: ValueKey('analytics')),
-          // AppRoutes.notifications => const RecentActivity(key: ValueKey('notifications')),
+        // AppRoutes.analytics => const RecentActivity(key: ValueKey('analytics')),
+        // AppRoutes.notifications => const RecentActivity(key: ValueKey('notifications')),
 
         // Default fallback
           _ => const DashboardContent(key: ValueKey('dashboard')),

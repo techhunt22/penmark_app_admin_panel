@@ -6,6 +6,7 @@ import '../../widgets/add_widget.dart';
 import '../../widgets/profile_notification_widget.dart';
 import '../../widgets/title_searchbar_widget.dart';
 
+import 'components/dialog_widget.dart';
 import 'components/template_table_widgets.dart';
 
 class TemplatesScreen extends StatefulWidget {
@@ -23,6 +24,7 @@ class _TemplatesScreenState extends State<TemplatesScreen> {
   void dispose() {
     super.dispose();
     controller.dispose();
+    templates.dispose();
   }
 
   @override
@@ -45,20 +47,8 @@ class _TemplatesScreenState extends State<TemplatesScreen> {
             spacing: 1015,
             ontap: () {
 
-              // showAddTemplateDialog(
-              //   context: context,
-              //   collections: collections,
-              //   title: "Add New Template",
-              //   uploadFile: () {
-              //
-              //     print("Upload file clicked");
-              //   },
-              //   onSubmit: (String templateName, bool isActive) {
-              //     print("Template Name: $templateName, Status: $isActive");
-              //     // You can now save it to your database or API
-              //     Get.back();
-              //   },
-              // );
+              showAddTemplateDialog(context);
+
 
             },
           ),
@@ -67,13 +57,14 @@ class _TemplatesScreenState extends State<TemplatesScreen> {
             controller: controller,
             title: "Manage Templates",
             spacing: 731,
+
             filter: () {},
             validator: (p0) {
               return null;
             },
           ),
           const SizedBox(height: gap2),
-          const TemplateTableWidgets(),
+             TemplateTableWidgets(),
         ],
       ),
     );

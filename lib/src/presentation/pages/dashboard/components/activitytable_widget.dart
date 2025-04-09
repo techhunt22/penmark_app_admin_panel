@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/routes/navigation_controller.dart';
-import '../../../widgets/pagination_widget.dart';
 
 
 
@@ -60,8 +59,8 @@ class ActivityTable extends StatelessWidget {
 
         // Pagination
 
-        isDashboard ? const SizedBox.shrink()
-            : const PaginationWidget()
+        // isDashboard ? const SizedBox.shrink()
+        //     : const PaginationWidget()
       ],
     );
   }
@@ -74,7 +73,7 @@ Widget buildListView(NavigationController dashboardController) {
 
     width: 1550,
     child: ListView.builder(
-      itemCount: 7,
+      itemCount: 6,
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {

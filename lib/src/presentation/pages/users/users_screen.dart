@@ -48,7 +48,7 @@ class _UsersScreenState extends State<UsersScreen> {
             },
           ),
           const SizedBox(height: gap2),
-          const UserTableWidget()
+           UserTableWidget()
         ],
       ),
     );

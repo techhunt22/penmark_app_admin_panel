@@ -11,12 +11,11 @@ class ApiService {
   final Dio dio = Dio();
   final Map<String, CancelToken> _cancelTokens = {};
 
-
   // Step 1: Singleton instance
   //static final ApiService instance = ApiService._internal();
   //ApiService._internal(){}
   // factory ApiService() => instance; //  Always returns the same instance
-  
+
   ApiService() {
     dio.options.baseUrl = baseUrl;
     dio.options.headers['Content-Type'] = 'application/json';
@@ -48,10 +47,6 @@ class ApiService {
     );
   }
 
-
-
-
-
   // Step 5: Cancel a specific request by endpoint
   void cancelRequest(String endpoint) {
     if (_cancelTokens.containsKey(endpoint)) {
@@ -72,17 +67,20 @@ class ApiService {
   // General GET request method with cancelation
   /////////////////////////////////////
   Future<Response> get(
-      String endpoint, {
-        Map<String, dynamic>? headers,
-        Map<String, dynamic>? queryParams,
-      }) async {
+    String endpoint, {
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? queryParams,
+  }) async {
     CancelToken cancelToken = CancelToken();
     _cancelTokens[endpoint] = cancelToken; // Store cancel token
 
     try {
       Response response = await dio.get(
         endpoint,
-        options: Options(headers: headers),
+        options: Options(
+          headers: headers,
+
+        ),
         queryParameters: queryParams,
         cancelToken: cancelToken, // Attach cancel token
       );
@@ -98,17 +96,19 @@ class ApiService {
   // General POST request method with cancelation
   /////////////////////////////////////
   Future<Response> post(
-      String endpoint, {
-        Map<String, dynamic>? headers,
-        dynamic body,
-      }) async {
+    String endpoint, {
+    Map<String, dynamic>? headers,
+    dynamic body,
+  }) async {
     CancelToken cancelToken = CancelToken();
     _cancelTokens[endpoint] = cancelToken;
 
     try {
       Response response = await dio.post(
         endpoint,
-        options: Options(headers: headers),
+        options: Options(headers: headers,
+
+        ),
         data: body,
         cancelToken: cancelToken,
       );
@@ -124,9 +124,9 @@ class ApiService {
   // General DELETE request method with cancelation
   /////////////////////////////////////
   Future<Response> delete(
-      String endpoint, {
-        Map<String, dynamic>? headers,
-      }) async {
+    String endpoint, {
+    Map<String, dynamic>? headers,
+  }) async {
     CancelToken cancelToken = CancelToken();
     _cancelTokens[endpoint] = cancelToken;
 
@@ -148,10 +148,10 @@ class ApiService {
   // General PUT request method with cancelation
   /////////////////////////////////////
   Future<Response> put(
-      String endpoint, {
-        Map<String, dynamic>? headers,
-        dynamic body,
-      }) async {
+    String endpoint, {
+    Map<String, dynamic>? headers,
+    dynamic body,
+  }) async {
     CancelToken cancelToken = CancelToken();
     _cancelTokens[endpoint] = cancelToken;
 
@@ -173,7 +173,8 @@ class ApiService {
   /////////////////////////////////////
   // Retry Mechanism
   /////////////////////////////////////
-  Future<T> retry<T>(Future<T> Function() function, {int maxRetries = 3}) async {
+  Future<T> retry<T>(Future<T> Function() function,
+      {int maxRetries = 3}) async {
     for (int attempt = 0; attempt <= maxRetries; attempt++) {
       try {
         return await function();

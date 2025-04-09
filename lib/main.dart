@@ -1,4 +1,5 @@
-import 'package:coloring_app_admin_panel/src/core/binding.dart';
+import 'package:coloring_app_admin_panel/src/core/bindings/initial_binding.dart';
+import 'package:coloring_app_admin_panel/src/core/session_storage.dart';
 import 'package:coloring_app_admin_panel/src/presentation/pages/auth/auth_screen.dart';
 import 'package:coloring_app_admin_panel/src/presentation/pages/dashboard.dart';
 import 'package:coloring_app_admin_panel/utils/app_routes.dart';
@@ -8,8 +9,9 @@ import 'constants/color_constants.dart';
 import 'constants/font_family.dart';
 
 
-void main() {
+Future<void> main() async {
 
+  await SessionManager.init(); // Initialize Hive before using it
 
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());

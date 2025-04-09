@@ -24,7 +24,7 @@ Exception handleError(dynamic error) {
     switch (error.type) {
       case DioExceptionType.connectionError:
         _logger.e('No internet connection detected.');
-        return ApiException(message: 'No internet connection. Please check your network.');
+        return ApiException(message: 'Connection Error. Please try again later');
 
       case DioExceptionType.connectionTimeout:
         _logger.e('Connection timeout occurred.');

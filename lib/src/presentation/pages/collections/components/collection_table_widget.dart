@@ -1,10 +1,21 @@
-import 'package:coloring_app_admin_panel/constants/color_constants.dart';
-import 'package:coloring_app_admin_panel/constants/font_family.dart';
-import 'package:coloring_app_admin_panel/constants/font_size.dart';
-import 'package:coloring_app_admin_panel/constants/size_constant.dart';
+import 'package:coloring_app_admin_panel/src/data/datasource/collection/get_collections_datasource.dart';
+import 'package:coloring_app_admin_panel/src/data/repositories_impl/collection/get_collection_repo_impl.dart';
+import 'package:coloring_app_admin_panel/src/presentation/controllers/collection/getcollection/collections_cache_class.dart';
+import 'package:coloring_app_admin_panel/src/presentation/widgets/action_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../../../utils/CustomWidgets/custom_buttons.dart';
+import 'package:get/get.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+
+import '../../../../../constants/color_constants.dart';
+import '../../../../../constants/font_family.dart';
+import '../../../../../constants/font_size.dart';
+import '../../../../../constants/size_constant.dart';
+import '../../../../domain/usecases/collection/get_collections_usecase.dart';
+import '../../../controllers/collection/getcollection/collections_controller.dart';
+import '../../../widgets/body_container.dart';
 import '../../../widgets/delete_dialog.dart';
+import '../../../widgets/heading_container.dart';
 import '../../../widgets/pagination_widget.dart';
 
 import 'collection_dialog.dart';
@@ -12,7 +23,9 @@ import 'collection_dialog.dart';
 
 class CollectionTableWidget extends StatelessWidget {
 
-  const CollectionTableWidget({super.key,});
+  CollectionTableWidget({super.key,});
+
+  final controller = Get.put(CollectionsController(GetCollectionsUseCase(GetCollectionRepoImpl(GetCollectionDataImpl())),CollectionsCache()));
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +41,26 @@ class CollectionTableWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              _buildHeadingContainer('Collection Name', 4, false),
+              HeadingContainer(text: 'Collection Name',flex:4,isCenter:false),
               const SizedBox(width: gap),
               // Add spacing between columns
-              _buildHeadingContainer('Number of Templates', 4,false),
+              HeadingContainer(text: 'Number of Templates',flex: 4,isCenter: false),
               const SizedBox(width: gap),
               // Add spacing between columns
-              _buildHeadingContainer('Status', 4,false),
+              HeadingContainer(text:'Status', flex: 4,isCenter:  false),
               // Increased flex for description
               const SizedBox(width: gap),
               // Add spacing between columns
-              _buildHeadingContainer('Actions', 4,true),
+              HeadingContainer(text: 'Actions',flex: 4,isCenter:  true),
+              Expanded(
+                flex: 1,
+                child: IconButton(
+                  onPressed: () {
+                    controller.refreshData();
 
+                  },
+                  icon: Icon(Icons.refresh_outlined),),
+              )
               // Reduced flex for actions
             ],
           ),
@@ -53,189 +74,278 @@ class CollectionTableWidget extends StatelessWidget {
         const SizedBox(height: gap),
 
         // Pagination
-        const PaginationWidget()
+         PaginationWidget(controller: controller,)
       ],
     );
   }
 
 
-}
+  Widget buildListView() {
+    return SizedBox(
+        width: 1550,
+        child: Obx(() {
+          if (controller.isLoading.value) {
+            return Skeletonizer(
 
-Widget buildListView() {
-  return SizedBox(
-    width: 1550,
-    child: ListView.builder(
-      itemCount: 6,
-      shrinkWrap: true,
-      itemBuilder: (context, index) {
-        return Container(
-          height: 75,
-          width: 1550,
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          margin: const EdgeInsets.symmetric(vertical: 5),
-          decoration: BoxDecoration(
-              color: AppColors.white, borderRadius: BorderRadius.circular(10)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              const Expanded(
-                  flex: 4,
-                  child: Text(
-                    "Rose Blossom",
-                    maxLines: 4,
-                    textAlign: TextAlign.left,
-                    // Align text to the left
-
-                    style: TextStyle(
-                        fontSize: AppFontSize.bodymedium,
-                        fontWeight: AppFonts.regular),
-                    overflow: TextOverflow.ellipsis,
-                  )),
-
-              const SizedBox(width: gap),
-              // Add spacing between columns
+              child: ListView.builder(
+                itemCount: 5,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
 
 
-              // Add spacing between columns
-              _buildContainer(
-                  '12',
-                  4),
-              // Increased flex for description
-              const SizedBox(width: gap),
-              // Add spacing between columns
-              Expanded(
-                flex: 4,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    height: 36,
-                    constraints: const BoxConstraints(maxWidth: 108),
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                  return Container(
+                    height: 75,
+                    width: 1550,
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    margin: const EdgeInsets.symmetric(vertical: 5),
                     decoration: BoxDecoration(
-                      color: AppColors.brightblue.withValues(alpha:0.5),
-                      borderRadius: BorderRadius.circular(8),
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                            flex: 4,
+                            child: Text(
+                              "asdsadas",
+                              maxLines: 4,
+                              textAlign: TextAlign.left,
+                              // Align text to the left
+
+                              style: const TextStyle(
+                                  fontSize: AppFontSize.bodymedium,
+                                  fontWeight: AppFonts.regular),
+                              overflow: TextOverflow.ellipsis,
+                            )),
+
+                        const SizedBox(width: gap),
+                        // Add spacing between columns
+
+
+                        // Add spacing between columns
+                        BodyContainer(
+                           text:  "asdasdasd",
+                          flex:   4),
+                        // Increased flex for description
+                        const SizedBox(width: gap),
+                        // Add spacing between columns
+                        Expanded(
+                          flex: 4,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                              height: 36,
+                              constraints: const BoxConstraints(maxWidth: 108),
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child:  Center(
+                                child: Text(
+                                  "asdasd",
+                                  style: TextStyle(
+                                    fontSize: AppFontSize.bodysmall2,
+                                    color: AppColors.black,
+                                    fontWeight: AppFonts.regular,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+
+                        const SizedBox(width: gap),
+
+
+                        // Add spacing between columns
+                        Expanded(
+                            flex: 4,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ActionButton(
+                                    text: "Edit",
+                                    img: "icons/png/newtab.png",
+                                    clr: AppColors.purple,
+                                    ontap: () {
+                                      showCollectionDialog(
+                                          context, 'Edit Collection');
+                                    }
+                                ),
+                                const SizedBox(width: 8),
+                                ActionButton(
+                                    text: "Delete",
+                                    clr: AppColors.orangesoft,
+                                    img: "icons/png/deleteicon.png",
+                                    ontap: () {
+                                      showDeleteDialog(
+                                          context: context,
+                                          text: 'Delete Collection',
+                                          subtitle: 'Are you sure you want to delete this collection? This will permanently remove all associated templates and cannot be undone.',
+                                          img: "icons/png/deleteiconred.png",
+                                          cancel: () {
+                                            Navigator.pop(context);
+                                          },
+                                          save: () {}
+
+                                      );
+                                    }
+                                ),
+                              ],
+                            )),
+                        Expanded(
+                            flex: 1,
+                            child: SizedBox.shrink())
+                        // Reduced flex for actions
+                      ],
                     ),
-                    child: const Center(
-                      child: Text(
-                        "Active",
-                        style: TextStyle(
-                          fontSize: AppFontSize.bodysmall2,
-                          color: AppColors.black,
-                          fontWeight: AppFonts.regular,
+                  );
+                },
+              ),
+            );
+          }
+          if (controller.errorMessage.isNotEmpty) {
+            return Center(child: Text(controller.errorMessage.value));
+          }
+
+          return ListView.builder(
+            itemCount: controller.collections.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              final collection = controller.collections[index];
+
+              return Container(
+                height: 75,
+                width: 1550,
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                        flex: 4,
+                        child: Text(
+                            collection.name,
+                          maxLines: 4,
+                          textAlign: TextAlign.left,
+                          // Align text to the left
+
+                          style: const TextStyle(
+                              fontSize: AppFontSize.bodymedium,
+                              fontWeight: AppFonts.regular),
+                          overflow: TextOverflow.ellipsis,
+                        )),
+
+                    const SizedBox(width: gap),
+                    // Add spacing between columns
+
+
+                    // Add spacing between columns
+                    BodyContainer(
+                       text:  collection.templatesCount.toString(),
+                      flex:   4),
+                    // Increased flex for description
+                    const SizedBox(width: gap),
+                    // Add spacing between columns
+                    Expanded(
+                      flex: 4,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          height: 36,
+                          constraints: const BoxConstraints(maxWidth: 108),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                            color:
+                            collection.status == "active"
+                                ? AppColors.brightblue.withValues(alpha: 0.5)
+                                : AppColors.red,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child:  Center(
+                            child: Text(
+                              collection.status,
+                              style: TextStyle(
+                                fontSize: AppFontSize.bodysmall2,
+                                color: AppColors.black,
+                                fontWeight: AppFonts.regular,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+
+
+                    const SizedBox(width: gap),
+
+
+                    // Add spacing between columns
+                    Expanded(
+                        flex: 4,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ActionButton(
+                                text: "Edit",
+                                img: "icons/png/newtab.png",
+                                clr: AppColors.purple,
+                                ontap: () {
+                                  showCollectionDialog(
+                                      context, 'Edit Collection');
+                                }
+                            ),
+                            const SizedBox(width: 8),
+                            ActionButton(
+                                text: "Delete",
+                                clr: AppColors.orangesoft,
+                                img: "icons/png/deleteicon.png",
+                                ontap: () {
+                                  showDeleteDialog(
+                                      context: context,
+                                      text: 'Delete Collection',
+                                      subtitle: 'Are you sure you want to delete this collection? This will permanently remove all associated templates and cannot be undone.',
+                                      img: "icons/png/deleteiconred.png",
+                                      cancel: () {
+                                        Navigator.pop(context);
+                                      },
+                                      save: () {}
+
+                                  );
+                                }
+                            ),
+                          ],
+                        )),
+
+                    Expanded(
+                        flex: 1,
+                        child: SizedBox()
+                    ),
+                    // Reduced flex for actions
+                  ],
                 ),
-              ),
+              );
+            },
+          );
 
+        }
+        )
+    );
+  }
 
-
-
-              const SizedBox(width: gap),
-
-
-              // Add spacing between columns
-              Expanded(
-                  flex: 4,
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _buildActionButton(
-                          text: "Edit",
-                          img: "icons/png/newtab.png",
-                          clr: AppColors.purple,
-                          ontap: (){
-                            showCollectionDialog(context, 'Edit Collection');
-
-                          }
-                      ),
-                      const SizedBox(width: 8),
-                      _buildActionButton(
-                          text: "Delete",
-                          clr: AppColors.orangesoft,
-                          img: "icons/png/deleteicon.png",
-                          ontap: (){
-                            showDeleteDialog(
-                               context: context,
-                                text: 'Delete Collection',
-                              subtitle: 'Are you sure you want to delete this collection? This will permanently remove all associated templates and cannot be undone.',
-                                img: "icons/png/deleteiconred.png",
-                              cancel: (){
-                                Navigator.pop(context);
-                              },
-                              save: (){}
-
-                            );
-
-                          }
-                      ),
-                    ],
-                  )),
-              // Reduced flex for actions
-            ],
-          ),
-        );
-      },
-    ),
-  );
-}
-
-Widget _buildHeadingContainer(String text, int flex, bool isCenter) {
-  return Expanded(
-    flex: flex,
-    child: Align(
-      alignment: isCenter ? Alignment.center : Alignment.centerLeft,
-      child: Text(
-        text,
-        maxLines: 1,
-        textAlign: TextAlign.left, // Align text to the left
-
-        style: const TextStyle(
-            fontSize: AppFontSize.bodymedium, fontWeight: AppFonts.bold),
-        overflow: TextOverflow.ellipsis,
-      ),
-    ),
-  );
-}
-
-Widget _buildContainer(String text, int flex) {
-  return Expanded(
-    flex: flex,
-    child: Text(
-      text,
-      maxLines: 2,
-      textAlign: TextAlign.left, // Align text to the left
-
-      style: const TextStyle(
-          fontSize: AppFontSize.bodymedium, fontWeight: AppFonts.regular),
-      overflow: TextOverflow.ellipsis,
-    ),
-  );
 }
 
 
-Widget _buildActionButton({required String text,required VoidCallback ontap, required String img, required Color clr}) {
-  return Container(
-      constraints: const BoxConstraints(maxWidth: 120),
-      child: CustomTextIconButton(
-          onPressed: ontap,
-          height:45 ,
-          width: 115,
-          text:  text,
-          color: clr,
-          borderradius: 8,
-          fontsize:  AppFontSize.bodysmall2,
-          textcolor:AppColors.black,
-          opacity: 0.5,
-          img: img
-      )
 
 
 
-  );
-}
 
 
 void showCollectionDialog(BuildContext context, String text) {
@@ -246,15 +356,19 @@ void showCollectionDialog(BuildContext context, String text) {
 }
 
 
-
-void showDeleteDialog({required BuildContext context, required VoidCallback cancel,required VoidCallback save,required String text,required String subtitle,required String img}) {
+void showDeleteDialog(
+    {required BuildContext context, required VoidCallback cancel, required VoidCallback save, required String text, required String subtitle, required String img}) {
   showDialog(
     context: context,
-    builder: (context) => DeleteDialog(
-      title: text,
-      subtitle: subtitle,
-      img: img,cancel: cancel,save: save,
+    builder: (context) =>
+        DeleteDialog(
+          title: text,
+          subtitle: subtitle,
+          img: img,
+          cancel: cancel,
+          save: save,
 
-    ),
+        ),
   );
 }
+

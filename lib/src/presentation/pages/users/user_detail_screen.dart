@@ -10,7 +10,6 @@ import '../../../../constants/size_constant.dart';
 
 import '../../controllers/routes/navigation_controller.dart';
 import '../../widgets/delete_dialog.dart';
-import '../../widgets/pagination_widget.dart';
 import '../../widgets/profile_notification_widget.dart';
 import '../../widgets/title_searchbar_widget.dart';
 import '../../widgets/user_profile_img.dart';
@@ -41,8 +40,8 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
     if (_isEnabled == true) {
       showDeleteDialog(
           context: context,
-          text: 'Are you sure you want to suspent this user account?',
-          subtitle: 'The user will be suspended.',
+          text: 'Are you sure you want to suspent this users account?',
+          subtitle: 'The users will be suspended.',
           img: 'assets/icons/png/personiconred.png',
           cancel: () {
             Navigator.pop(context);
@@ -148,7 +147,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
           const SizedBox(height: gap),
 
           // Pagination
-          const PaginationWidget()
+        //  const PaginationWidget()
 
         ],
       ),
@@ -175,7 +174,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                           fontWeight: AppFonts.regular),
                     ),
                     Text(
-                      "Manage user accounts effectively. Key actions include suspending or reactivating users or permanently deleting accounts. ",
+                      "Manage users accounts effectively. Key actions include suspending or reactivating users or permanently deleting accounts. ",
                       style: TextStyle(
                           fontSize: AppFontSize.bodysmall2,
                           fontWeight: AppFonts.regular),
@@ -259,7 +258,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                                       Navigator.pop(context);
                                     },
                                     save: () {},
-                                    text: "Are you sure you want to delete this user account?",
+                                    text: "Are you sure you want to delete this users account?",
                                     subtitle: "This action cannot be undone.",
                                     img: "assets/icons/png/deleteiconred.png"
                                 );

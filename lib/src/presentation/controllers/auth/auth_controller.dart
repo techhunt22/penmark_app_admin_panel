@@ -26,7 +26,7 @@ class AuthController extends GetxController {
 
       if (kDebugMode) {
         print("AUTH CONTROLLER: ${authEntityData.data.accessToken}");
-        print("ACCESS TOKEN : ${sessionManager.getSession("access_token")}");
+        print("ACCESS TOKEN SAVED: ${sessionManager.getSession("access_token")}");
       }
 
       showSnackbar(

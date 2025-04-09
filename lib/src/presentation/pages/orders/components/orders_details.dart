@@ -10,11 +10,14 @@ import '../../../widgets/profile_notification_widget.dart';
 import '../../../widgets/user_profile_img.dart';
 
 
-class UserOrderDetailScreen extends StatelessWidget {
-  const UserOrderDetailScreen({super.key});
+class OrderDetailScreen extends StatelessWidget {
+
+  const OrderDetailScreen({super.key,  });
+
 
   @override
   Widget build(BuildContext context) {
+
     final NavigationController dashboardController = Get.find();
 
     return Padding(
@@ -38,7 +41,7 @@ class UserOrderDetailScreen extends StatelessWidget {
           const SizedBox(height: gap3),
 
           Text(
-            "Order Details",
+            "Test",
             style: TextStyle(
                 fontSize: AppFontSize.displaysmall,
                 fontWeight: AppFonts.medium),
@@ -216,6 +219,8 @@ class UserOrderDetailScreen extends StatelessWidget {
     );
   }
 }
+
+
 Widget _buildDetailRow(String label, String value) {
   return Column(
     children: [

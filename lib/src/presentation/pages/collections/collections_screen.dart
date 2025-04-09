@@ -59,7 +59,7 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
             },
           ),
           const SizedBox(height: gap2),
-          const CollectionTableWidget(),
+           CollectionTableWidget(),
         ],
       ),
     );
