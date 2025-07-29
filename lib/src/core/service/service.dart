@@ -11,7 +11,7 @@ class ApiService {
   final Dio dio = Dio();
   final Map<String, CancelToken> _cancelTokens = {};
 
-  // Step 1: Singleton instance
+  //  Singleton instance
   //static final ApiService instance = ApiService._internal();
   //ApiService._internal(){}
   // factory ApiService() => instance; //  Always returns the same instance
@@ -47,7 +47,7 @@ class ApiService {
     );
   }
 
-  // Step 5: Cancel a specific request by endpoint
+  //  Cancel a specific request by endpoint
   void cancelRequest(String endpoint) {
     if (_cancelTokens.containsKey(endpoint)) {
       _cancelTokens[endpoint]!.cancel("Request to $endpoint was cancelled");
@@ -55,7 +55,7 @@ class ApiService {
     }
   }
 
-  // Step 6: Cancel all ongoing requests
+  //  Cancel all ongoing requests
   void cancelAllRequests() {
     for (var token in _cancelTokens.values) {
       token.cancel("All requests cancelled");
