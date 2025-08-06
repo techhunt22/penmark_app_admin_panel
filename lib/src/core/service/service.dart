@@ -27,19 +27,19 @@ class ApiService {
       InterceptorsWrapper(
         onRequest: (options, handler) {
           if (kDebugMode) {
-            print('Request: ${options.uri}');
+            print('Request: ${options.uri}\n\n');
           }
           return handler.next(options);
         },
         onResponse: (response, handler) {
           if (kDebugMode) {
-            print('Response: ${response.data}');
+            print('Response: ${response.data}\n\n');
           }
           return handler.next(response);
         },
         onError: (DioException e, handler) {
           if (kDebugMode) {
-            print('Error: ${e.message}');
+            print('Error: ${e.message}\n\n');
           }
           return handler.next(e);
         },

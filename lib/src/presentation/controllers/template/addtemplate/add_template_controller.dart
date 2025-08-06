@@ -1,6 +1,7 @@
 import 'package:coloring_app_admin_panel/constants/color_constants.dart';
 import 'package:coloring_app_admin_panel/src/domain/entities/template/add_template_entity.dart';
 import 'package:coloring_app_admin_panel/src/domain/usecases/template/add_template_usecase.dart';
+import 'package:coloring_app_admin_panel/src/presentation/controllers/template/gettemplates/get_templates_controller.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +9,29 @@ import 'package:get/get.dart';
 import '../../../../../../constants/snackbar_widget.dart';
 import '../../../../core/error/error_handler.dart';
 import '../../../../data/datasource/template/add_template_datasource.dart';
+import '../../collection/getcollection/collections_controller.dart';
 import 'filepicker_class.dart';
+
+class CollectionItem {
+  final String id;
+  final String name;
+
+  CollectionItem({required this.id, required this.name});
+
+  @override
+  String toString() => name; // Good for debugging
+}
+
+
+
 
 class AddTemplateController extends GetxController {
   final AddTemplateUseCase addTemplateUseCase;
-  final FilePickerService filePickerService;
+  final TemplatesFilePickerService filePickerService;
+  final CollectionsController collectionsController;
+  final TemplatesController templatesController;
 
-  AddTemplateController(this.addTemplateUseCase, this.filePickerService);
+  AddTemplateController(this.addTemplateUseCase, this.filePickerService, this.collectionsController, this.templatesController);
 
   RxBool isLoading = false.obs;
   var templates = Rxn<AddTemplatesEntity>();
@@ -25,14 +42,18 @@ class AddTemplateController extends GetxController {
   var selectedFileName = ''.obs;
   var selectedCollection = Rxn<String>();
   var isActive = false.obs;
-  var fileError = ''.obs; // ✅ Track file selection errors
+  var fileError = ''.obs;
 
-  List<String> collections = [
-    '6780011e62f4e80bfaa452da',
-    '67d32e0aa1ba904c2642c9ae',
-    '67d32e13a1ba904c2642c9b4',
-    '67d32e18a1ba904c2642c9b8'
-  ]; // Set this from the UI
+
+  @override
+  void onInit() {
+    super.onInit();
+    collectionsController.collectionList();
+
+  }
+
+
+
 
   //select file
   void selectFile() async {
@@ -91,7 +112,7 @@ class AddTemplateController extends GetxController {
   }
 
   Future<void> submit(Function onSuccess) async {
-    String status = isActive.value ? "active" : "disabled";
+    String status = isActive.value ? "active" : "inactive";
 
     if (formKey.currentState!.validate()) {
       if (selectedFileBytes.value == null) {
@@ -99,13 +120,22 @@ class AddTemplateController extends GetxController {
         return;
       }
 
+      if (selectedCollection.value == null) {
+        ErrorHandler.handleError("Please select a collection");
+        return;
+      }
+
       isLoading.value = true;
 
+      String updatedCollectionId;
+
+      updatedCollectionId = selectedCollection.value!;
+
       // Simulate API Call
-      final submitresult = AddTemplateParams(
+      final submitResult = AddTemplateParams(
         name: nameController.text.trim(),
         status: status,
-        collectionId: selectedCollection.value!,
+        collectionId: updatedCollectionId,
         fileBytes: selectedFileBytes.value!,
         fileName: selectedFileName.value,
       );
@@ -113,7 +143,7 @@ class AddTemplateController extends GetxController {
         print("Submitting template: ${nameController.text},\n${selectedFileName.value}\n$status");
       }
 
-      final result = await addTemplateUseCase.templateUseCase(submitresult);
+      final result = await addTemplateUseCase.templateUseCase(submitResult);
 
       isLoading.value = false;
 
@@ -128,6 +158,7 @@ class AddTemplateController extends GetxController {
             message: success.message,
             backgroundColor: AppColors.primarycolor,
           );
+          templatesController.refreshData();
 
           resetFields();
           onSuccess(); // Callback only when API call is successful

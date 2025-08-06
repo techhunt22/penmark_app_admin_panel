@@ -7,25 +7,30 @@ import 'package:coloring_app_admin_panel/src/data/repositories_impl/template/get
 import 'package:coloring_app_admin_panel/src/domain/usecases/template/get_templates_usecase.dart';
 import 'package:coloring_app_admin_panel/src/presentation/controllers/template/gettemplates/get_templates_controller.dart';
 import 'package:coloring_app_admin_panel/src/presentation/controllers/template/gettemplates/templates_cache.dart';
-import 'package:coloring_app_admin_panel/src/presentation/pages/templates/components/dialog_widget.dart';
+import 'package:coloring_app_admin_panel/src/presentation/pages/templates/components/update_dialog_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../../data/datasource/template/delete_template_datasource.dart';
+import '../../../../data/repositories_impl/template/delete_template_repo_impl.dart';
+import '../../../../domain/usecases/template/delete_template_usecase.dart';
+import '../../../controllers/template/deletetemplate/delete_template_controller.dart';
 import '../../../widgets/action_button.dart';
 import '../../../widgets/body_container.dart';
 import '../../../widgets/delete_dialog.dart';
 import '../../../widgets/heading_container.dart';
 import '../../../widgets/pagination_widget.dart';
 
-
 class TemplateTableWidgets extends StatelessWidget {
-
-  TemplateTableWidgets({super.key,});
+  TemplateTableWidgets({
+    super.key,
+  });
 
   final controller = Get.put(TemplatesController(
       GetTemplatesUseCase(GetTemplatesRepoImpl(GetTemplatesDataImpl())),
       TemplatesCache()));
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +39,6 @@ class TemplateTableWidgets extends StatelessWidget {
         Container(
           height: 75,
           width: 1550,
-
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 25),
           decoration: BoxDecoration(
               color: AppColors.white, borderRadius: BorderRadius.circular(10)),
@@ -42,27 +46,26 @@ class TemplateTableWidgets extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              HeadingContainer(text: 'Template Name',flex:4,isCenter:false),
+              HeadingContainer(text: 'Template Name', flex: 4, isCenter: false),
               const SizedBox(width: gap),
               // Add spacing between columns
-              HeadingContainer(text: 'Collection',flex: 4,isCenter: false),
+              HeadingContainer(text: 'Collection', flex: 4, isCenter: false),
               const SizedBox(width: gap),
               // Add spacing between columns
-              HeadingContainer(text:'Status', flex: 4,isCenter:  false),
+              HeadingContainer(text: 'Status', flex: 4, isCenter: false),
               // Increased flex for description
               const SizedBox(width: gap),
               // Add spacing between columns
-              HeadingContainer(text: 'Actions',flex: 4,isCenter:  true),
-
+              HeadingContainer(text: 'Actions', flex: 4, isCenter: true),
 
               Expanded(
                 flex: 1,
                 child: IconButton(
                   onPressed: () {
                     controller.refreshData();
-
                   },
-                  icon: Icon(Icons.refresh_outlined),),
+                  icon: Icon(Icons.refresh_outlined),
+                ),
               )
 
               // Reduced flex for actions
@@ -87,16 +90,12 @@ class TemplateTableWidgets extends StatelessWidget {
     return SizedBox(
       width: 1550,
       child: Obx(() {
-
         if (controller.isLoading.value) {
           return Skeletonizer(
-
             child: ListView.builder(
               itemCount: 5,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-
-
                 return Container(
                   height: 75,
                   width: 1550,
@@ -126,11 +125,8 @@ class TemplateTableWidgets extends StatelessWidget {
                       const SizedBox(width: gap),
                       // Add spacing between columns
 
-
                       // Add spacing between columns
-                      BodyContainer(
-                         text:  "asdasdasd",
-                        flex:   4),
+                      BodyContainer(text: "asdasdasd", flex: 4),
                       // Increased flex for description
                       const SizedBox(width: gap),
                       // Add spacing between columns
@@ -143,10 +139,9 @@ class TemplateTableWidgets extends StatelessWidget {
                             constraints: const BoxConstraints(maxWidth: 108),
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
-
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child:  Center(
+                            child: Center(
                               child: Text(
                                 "asdasd",
                                 style: TextStyle(
@@ -160,9 +155,7 @@ class TemplateTableWidgets extends StatelessWidget {
                         ),
                       ),
 
-
                       const SizedBox(width: gap),
-
 
                       // Add spacing between columns
                       Expanded(
@@ -174,26 +167,16 @@ class TemplateTableWidgets extends StatelessWidget {
                                   text: "Edit",
                                   img: "icons/png/newtab.png",
                                   clr: AppColors.purple,
-                                  ontap: () {
-
-                                  }
-                              ),
+                                  ontap: () {}),
                               const SizedBox(width: 8),
                               ActionButton(
                                   text: "Delete",
                                   clr: AppColors.orangesoft,
                                   img: "icons/png/deleteicon.png",
-                                  ontap: () {
-
-
-                                  }
-                              ),
+                                  ontap: () {}),
                             ],
                           )),
-                      Expanded(
-                          flex: 1,
-                          child: SizedBox()
-                      ),
+                      Expanded(flex: 1, child: SizedBox()),
                       // Reduced flex for actions
                     ],
                   ),
@@ -206,7 +189,6 @@ class TemplateTableWidgets extends StatelessWidget {
         if (controller.errorMessage.isNotEmpty) {
           return Center(child: Text(controller.errorMessage.value));
         }
-
 
         return ListView.builder(
           itemCount: controller.templates.length,
@@ -226,28 +208,16 @@ class TemplateTableWidgets extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Expanded(
-                      flex: 4,
-                      child: Text(
-                        template.name,
-                        maxLines: 4,
-                        textAlign: TextAlign.left,
-                        // Align text to the left
-
-                        style: const TextStyle(
-                            fontSize: AppFontSize.bodymedium,
-                            fontWeight: AppFonts.regular),
-                        overflow: TextOverflow.ellipsis,
-                      )),
+                  BodyContainer(
+                    text: template.name,
+                    flex: 4,
+                  ),
 
                   const SizedBox(width: gap),
                   // Add spacing between columns
 
-
                   // Add spacing between columns
-                  BodyContainer(
-                     text:  template.collectionname,
-                     flex:  4),
+                  BodyContainer(text: template.collectionname, flex: 4),
                   // Increased flex for description
                   const SizedBox(width: gap),
                   // Add spacing between columns
@@ -265,7 +235,7 @@ class TemplateTableWidgets extends StatelessWidget {
                               : AppColors.red,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child:  Center(
+                        child: Center(
                           child: Text(
                             template.status,
                             style: TextStyle(
@@ -279,9 +249,7 @@ class TemplateTableWidgets extends StatelessWidget {
                     ),
                   ),
 
-
                   const SizedBox(width: gap),
-
 
                   // Add spacing between columns
                   Expanded(
@@ -295,36 +263,27 @@ class TemplateTableWidgets extends StatelessWidget {
                               img: "icons/png/newtab.png",
                               clr: AppColors.purple,
                               ontap: () {
-                                showAddTemplateDialog(context);
-
-                              }
-                          ),
+                                showUpdateTemplateDialog(context, template);
+                              }),
                           const SizedBox(width: 8),
                           ActionButton(
                               text: "Delete",
                               clr: AppColors.orangesoft,
                               img: "icons/png/deleteicon.png",
                               ontap: () {
+
                                 showDeleteDialog(
                                   context: context,
-                                  text: 'Edit Template',
-                                  subtitle: 'Are you sure you want to delete This template? This action cannot be undone.',
-                                  img: 'icons/png/deleteiconred.png',
-                                  cancel: () {
-                                    Navigator.pop(context);
-                                  },
-                                  save: () {
+                                  template: template,
+                                  title: 'Delete Template?',
+                                  subtitle: 'Are you sure you want to delete this template?',
 
-                                  },
                                 );
-                              }
-                          ),
+
+                              }),
                         ],
                       )),
-                  Expanded(
-                      flex: 1,
-                      child: SizedBox()
-                  ),
+                  Expanded(flex: 1, child: SizedBox()),
                   // Reduced flex for actions
                 ],
               ),
@@ -335,27 +294,5 @@ class TemplateTableWidgets extends StatelessWidget {
     );
   }
 
-}
 
-
-
-
-
-
-
-
-void showDeleteDialog(
-    {required BuildContext context, required VoidCallback cancel, required VoidCallback save, required String text, required String subtitle, required String img}) {
-  showDialog(
-    context: context,
-    builder: (context) =>
-        DeleteDialog(
-          title: text,
-          subtitle: subtitle,
-          img: img,
-          cancel: cancel,
-          save: save,
-
-        ),
-  );
 }

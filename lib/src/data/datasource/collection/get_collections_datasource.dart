@@ -18,7 +18,7 @@ class GetCollectionDataImpl implements GetCollectionsDatasource {
 
   @override
   Future<GetCollectionsModel> collections({required int page, required int limit}) async {
-    const String endpoint = ListAPI.getcollections;
+    const String endpoint = ListAPI.getCollections;
 
 
     try {

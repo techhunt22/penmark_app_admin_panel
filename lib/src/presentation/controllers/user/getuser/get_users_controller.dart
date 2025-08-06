@@ -2,11 +2,11 @@
 import 'dart:async';
 
 import 'package:coloring_app_admin_panel/src/domain/usecases/user/get_users_usecase.dart';
-import 'package:coloring_app_admin_panel/src/presentation/controllers/user/users_cache.dart';
+import 'package:coloring_app_admin_panel/src/presentation/controllers/user/getuser/users_cache.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
-import '../../../domain/entities/user/get_user_entity.dart';
+import '../../../../domain/entities/user/get_user_entity.dart';
 
 
 class GetUsersController extends GetxController{
@@ -36,16 +36,18 @@ class GetUsersController extends GetxController{
   }
 
   Future<void> fetchUsers({int limit = 5})async {
+    errorMessage.value = '';
+
     if (forceRefresh.value) {
       cache.clearCache();
     }
 
-    if (cache.containsPage(currentPage.value)) {
+
+    if (!forceRefresh.value && cache.containsPage(currentPage.value)) {
       users.assignAll(cache.getPage(currentPage.value)!);
       cache.logCacheUsage();
       return;
     }
-
     isLoading.value = true;
 
     final result = await getUsersUseCase.getUsersUseCase(
@@ -63,6 +65,8 @@ class GetUsersController extends GetxController{
 
           },
           (success) {
+            errorMessage.value = '';
+
             users.assignAll(success.data);
             totalPages.value = success.pagination.totalPages;
             currentPage.value = success.pagination.currentPage;
@@ -114,7 +118,11 @@ class GetUsersController extends GetxController{
   void clearCache() => cache.clearCache();
 
 
+
   void refreshData() {
+    if (currentPage.value < 1) {
+      currentPage.value = 1;
+    }
     forceRefresh.value = true;
     fetchUsers();
   }

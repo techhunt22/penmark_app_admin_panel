@@ -4,8 +4,7 @@ import 'package:coloring_app_admin_panel/constants/font_size.dart';
 import 'package:coloring_app_admin_panel/constants/size_constant.dart';
 import 'package:coloring_app_admin_panel/src/data/repositories_impl/user/get_user_repo_impl.dart';
 import 'package:coloring_app_admin_panel/src/domain/usecases/user/get_users_usecase.dart';
-import 'package:coloring_app_admin_panel/src/presentation/controllers/user/get_users_controller.dart';
-import 'package:coloring_app_admin_panel/src/presentation/controllers/user/users_cache.dart';
+import 'package:coloring_app_admin_panel/src/presentation/controllers/user/getuser/get_users_controller.dart';
 import 'package:coloring_app_admin_panel/src/presentation/widgets/action_button.dart';
 import 'package:coloring_app_admin_panel/src/presentation/widgets/body_container.dart';
 import 'package:coloring_app_admin_panel/src/presentation/widgets/heading_container.dart';
@@ -16,6 +15,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '../../../../../utils/app_routes.dart';
 import '../../../../data/datasource/users/get_users_datasource.dart';
 import '../../../controllers/routes/navigation_controller.dart';
+import '../../../controllers/user/getuser/users_cache.dart';
 import '../../../widgets/pagination_widget.dart';
 
 class UserTableWidget extends StatelessWidget {

@@ -112,7 +112,7 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
 
 
 
-              SizedBox(height: 280,),
+              SizedBox(height: 150),
               // Logout Item
               _buildNavItem(
                 label: logoutItem['label'],

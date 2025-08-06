@@ -16,7 +16,6 @@ class GetUsersDataEntity {
   String email;
   String status;
   DateTime createdAt;
-  String phone;
 
   GetUsersDataEntity({
     required this.id,
@@ -24,7 +23,6 @@ class GetUsersDataEntity {
     required this.email,
     required this.status,
     required this.createdAt,
-    required this.phone,
   });
 
 }

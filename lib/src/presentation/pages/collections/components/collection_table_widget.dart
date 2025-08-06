@@ -1,6 +1,7 @@
 import 'package:coloring_app_admin_panel/src/data/datasource/collection/get_collections_datasource.dart';
 import 'package:coloring_app_admin_panel/src/data/repositories_impl/collection/get_collection_repo_impl.dart';
 import 'package:coloring_app_admin_panel/src/presentation/controllers/collection/getcollection/collections_cache_class.dart';
+import 'package:coloring_app_admin_panel/src/presentation/pages/collections/components/update_collection_dialog.dart';
 import 'package:coloring_app_admin_panel/src/presentation/widgets/action_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,13 +20,16 @@ import '../../../widgets/heading_container.dart';
 import '../../../widgets/pagination_widget.dart';
 
 import 'collection_dialog.dart';
-
+import 'delete_collection_dialog.dart';
 
 class CollectionTableWidget extends StatelessWidget {
+  CollectionTableWidget({
+    super.key,
+  });
 
-  CollectionTableWidget({super.key,});
-
-  final controller = Get.put(CollectionsController(GetCollectionsUseCase(GetCollectionRepoImpl(GetCollectionDataImpl())),CollectionsCache()));
+  final controller = Get.put(CollectionsController(
+      GetCollectionsUseCase(GetCollectionRepoImpl(GetCollectionDataImpl())),
+      CollectionsCache()));
 
   @override
   Widget build(BuildContext context) {
@@ -41,25 +45,27 @@ class CollectionTableWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              HeadingContainer(text: 'Collection Name',flex:4,isCenter:false),
+              HeadingContainer(
+                  text: 'Collection Name', flex: 4, isCenter: false),
               const SizedBox(width: gap),
               // Add spacing between columns
-              HeadingContainer(text: 'Number of Templates',flex: 4,isCenter: false),
+              HeadingContainer(
+                  text: 'Number of Templates', flex: 4, isCenter: false),
               const SizedBox(width: gap),
               // Add spacing between columns
-              HeadingContainer(text:'Status', flex: 4,isCenter:  false),
+              HeadingContainer(text: 'Status', flex: 4, isCenter: false),
               // Increased flex for description
               const SizedBox(width: gap),
               // Add spacing between columns
-              HeadingContainer(text: 'Actions',flex: 4,isCenter:  true),
+              HeadingContainer(text: 'Actions', flex: 4, isCenter: true),
               Expanded(
                 flex: 1,
                 child: IconButton(
                   onPressed: () {
                     controller.refreshData();
-
                   },
-                  icon: Icon(Icons.refresh_outlined),),
+                  icon: Icon(Icons.refresh_outlined),
+                ),
               )
               // Reduced flex for actions
             ],
@@ -74,25 +80,24 @@ class CollectionTableWidget extends StatelessWidget {
         const SizedBox(height: gap),
 
         // Pagination
-         PaginationWidget(controller: controller,)
+        PaginationWidget(
+          controller: controller,
+        )
       ],
     );
   }
-
 
   Widget buildListView() {
     return SizedBox(
         width: 1550,
         child: Obx(() {
           if (controller.isLoading.value) {
-            return Skeletonizer(
 
+            return Skeletonizer(
               child: ListView.builder(
                 itemCount: 5,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-
-
                   return Container(
                     height: 75,
                     width: 1550,
@@ -122,11 +127,8 @@ class CollectionTableWidget extends StatelessWidget {
                         const SizedBox(width: gap),
                         // Add spacing between columns
 
-
                         // Add spacing between columns
-                        BodyContainer(
-                           text:  "asdasdasd",
-                          flex:   4),
+                        BodyContainer(text: "asdasdasd", flex: 4),
                         // Increased flex for description
                         const SizedBox(width: gap),
                         // Add spacing between columns
@@ -137,12 +139,12 @@ class CollectionTableWidget extends StatelessWidget {
                             child: Container(
                               height: 36,
                               constraints: const BoxConstraints(maxWidth: 108),
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
                               decoration: BoxDecoration(
-
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child:  Center(
+                              child: Center(
                                 child: Text(
                                   "asdasd",
                                   style: TextStyle(
@@ -156,9 +158,7 @@ class CollectionTableWidget extends StatelessWidget {
                           ),
                         ),
 
-
                         const SizedBox(width: gap),
-
 
                         // Add spacing between columns
                         Expanded(
@@ -171,34 +171,19 @@ class CollectionTableWidget extends StatelessWidget {
                                     img: "icons/png/newtab.png",
                                     clr: AppColors.purple,
                                     ontap: () {
-                                      showCollectionDialog(
-                                          context, 'Edit Collection');
-                                    }
-                                ),
+
+                                    }),
                                 const SizedBox(width: 8),
                                 ActionButton(
                                     text: "Delete",
                                     clr: AppColors.orangesoft,
                                     img: "icons/png/deleteicon.png",
                                     ontap: () {
-                                      showDeleteDialog(
-                                          context: context,
-                                          text: 'Delete Collection',
-                                          subtitle: 'Are you sure you want to delete this collection? This will permanently remove all associated templates and cannot be undone.',
-                                          img: "icons/png/deleteiconred.png",
-                                          cancel: () {
-                                            Navigator.pop(context);
-                                          },
-                                          save: () {}
 
-                                      );
-                                    }
-                                ),
+                                    }),
                               ],
                             )),
-                        Expanded(
-                            flex: 1,
-                            child: SizedBox.shrink())
+                        Expanded(flex: 1, child: SizedBox.shrink())
                         // Reduced flex for actions
                       ],
                     ),
@@ -206,6 +191,7 @@ class CollectionTableWidget extends StatelessWidget {
                 },
               ),
             );
+
           }
           if (controller.errorMessage.isNotEmpty) {
             return Center(child: Text(controller.errorMessage.value));
@@ -229,28 +215,16 @@ class CollectionTableWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Expanded(
-                        flex: 4,
-                        child: Text(
-                            collection.name,
-                          maxLines: 4,
-                          textAlign: TextAlign.left,
-                          // Align text to the left
-
-                          style: const TextStyle(
-                              fontSize: AppFontSize.bodymedium,
-                              fontWeight: AppFonts.regular),
-                          overflow: TextOverflow.ellipsis,
-                        )),
+                    BodyContainer(
+                      text: collection.name,
+                      flex: 4,
+                    ),
 
                     const SizedBox(width: gap),
                     // Add spacing between columns
 
-
                     // Add spacing between columns
-                    BodyContainer(
-                       text:  collection.templatesCount.toString(),
-                      flex:   4),
+                    BodyContainer(text: collection.templatesCount.toString(), flex: 4),
                     // Increased flex for description
                     const SizedBox(width: gap),
                     // Add spacing between columns
@@ -263,13 +237,12 @@ class CollectionTableWidget extends StatelessWidget {
                           constraints: const BoxConstraints(maxWidth: 108),
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
-                            color:
-                            collection.status == "active"
+                            color: collection.status == "active"
                                 ? AppColors.brightblue.withValues(alpha: 0.5)
                                 : AppColors.red,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child:  Center(
+                          child: Center(
                             child: Text(
                               collection.status,
                               style: TextStyle(
@@ -283,9 +256,7 @@ class CollectionTableWidget extends StatelessWidget {
                       ),
                     ),
 
-
                     const SizedBox(width: gap),
-
 
                     // Add spacing between columns
                     Expanded(
@@ -298,77 +269,29 @@ class CollectionTableWidget extends StatelessWidget {
                                 img: "icons/png/newtab.png",
                                 clr: AppColors.purple,
                                 ontap: () {
-                                  showCollectionDialog(
-                                      context, 'Edit Collection');
-                                }
-                            ),
+                                  showUpdateCollectionDialog(context, collection);
+                                }),
                             const SizedBox(width: 8),
                             ActionButton(
                                 text: "Delete",
                                 clr: AppColors.orangesoft,
                                 img: "icons/png/deleteicon.png",
                                 ontap: () {
-                                  showDeleteDialog(
-                                      context: context,
-                                      text: 'Delete Collection',
-                                      subtitle: 'Are you sure you want to delete this collection? This will permanently remove all associated templates and cannot be undone.',
-                                      img: "icons/png/deleteiconred.png",
-                                      cancel: () {
-                                        Navigator.pop(context);
-                                      },
-                                      save: () {}
-
-                                  );
-                                }
-                            ),
+                                  showCollectionDeleteDialog(context: context, collection: collection);
+                                }),
                           ],
                         )),
 
-                    Expanded(
-                        flex: 1,
-                        child: SizedBox()
-                    ),
+                    Expanded(flex: 1, child: SizedBox()),
                     // Reduced flex for actions
                   ],
                 ),
               );
             },
           );
-
-        }
-        )
-    );
+        }));
   }
-
 }
 
 
-
-
-
-
-
-void showCollectionDialog(BuildContext context, String text) {
-  showDialog(
-    context: context,
-    builder: (context) => CollectionDialog(title: text,),
-  );
-}
-
-
-void showDeleteDialog(
-    {required BuildContext context, required VoidCallback cancel, required VoidCallback save, required String text, required String subtitle, required String img}) {
-  showDialog(
-    context: context,
-    builder: (context) =>
-        DeleteDialog(
-          title: text,
-          subtitle: subtitle,
-          img: img,
-          cancel: cancel,
-          save: save,
-
-        ),
-  );
-}
 

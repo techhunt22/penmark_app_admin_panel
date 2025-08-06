@@ -44,7 +44,8 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
             btntext: "Add New Collection",
             spacing: 1005,
             ontap: () {
-              showCollectionDialog(context, 'Add New Collection');
+              showAddCollectionDialog(context);
+
             },
           ),
           const SizedBox(height: gap3),
@@ -66,11 +67,3 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
   }
 }
 
-void showCollectionDialog(BuildContext context, String text) {
-  showDialog(
-    context: context,
-    builder: (context) => CollectionDialog(
-      title: text,
-    ),
-  );
-}

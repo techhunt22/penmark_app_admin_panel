@@ -135,7 +135,7 @@ class CustomIconButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
             )),
-        onPressed: () {},
+        onPressed: onPressed,
         child: Image.asset(img!));
   }
 }

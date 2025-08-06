@@ -35,11 +35,13 @@ class TemplatesController extends GetxController{
   }
 
   Future<void> fetchTemplates({int limit = 5})async {
+    errorMessage.value = '';
+
     if (forceRefresh.value) {
       cache.clearCache();
     }
 
-    if (cache.containsPage(currentPage.value)) {
+    if (!forceRefresh.value && cache.containsPage(currentPage.value)) {
       templates.assignAll(cache.getPage(currentPage.value)!);
       cache.logCacheUsage();
       return;
@@ -47,7 +49,7 @@ class TemplatesController extends GetxController{
 
     isLoading.value = true;
 
-    final result = await getTemplatesUseCase.gettemplatesUseCase(
+    final result = await getTemplatesUseCase.getTemplatesUseCase(
       page: currentPage.value,
       limit: limit,
     );
@@ -60,6 +62,8 @@ class TemplatesController extends GetxController{
             templates.clear(); // Prevent previous stale data from showing
       },
           (success) {
+            errorMessage.value = ''; // ✅ Clear error on success
+
             templates.assignAll(success.data);
             totalPages.value = success.pagination.totalPages;
             currentPage.value = success.pagination.currentPage;
@@ -97,8 +101,12 @@ class TemplatesController extends GetxController{
 
 
   void refreshData() {
+    if (currentPage.value < 1) {
+      currentPage.value = 1;
+    }
     forceRefresh.value = true;
     fetchTemplates();
   }
+
 
 }

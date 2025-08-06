@@ -1,22 +1,28 @@
+import 'package:coloring_app_admin_panel/src/presentation/controllers/collection/getcollection/collections_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../constants/color_constants.dart';
 import '../../../../../constants/font_family.dart';
 import '../../../../../constants/font_size.dart';
 import '../../../../../constants/size_constant.dart';
+import '../../../../core/bindings/templates/add_template_binding.dart';
+import '../../../../data/datasource/collection/get_collections_datasource.dart';
 import '../../../../data/datasource/template/add_template_datasource.dart';
+import '../../../../data/repositories_impl/collection/get_collection_repo_impl.dart';
 import '../../../../data/repositories_impl/template/add_template_repo_impl.dart';
+import '../../../../domain/usecases/collection/get_collections_usecase.dart';
 import '../../../../domain/usecases/template/add_template_usecase.dart';
+import '../../../controllers/collection/getcollection/collections_cache_class.dart';
 import '../../../controllers/template/addtemplate/add_template_controller.dart';
 import '../../../controllers/template/addtemplate/filepicker_class.dart';
 
 Future<void> showAddTemplateDialog(BuildContext context) async {
-  final AddTemplateController controller = Get.put<AddTemplateController>(
-    AddTemplateController(
-      AddTemplateUseCase(AddTemplateRepositoryImpl(AddTemplatesDataImpl())),
-      FilePickerServiceImpl(),
-    ),
-  );
+
+
+  AddTemplateBinding().dependencies(); // Instantiates everything
+  final controller = Get.find<AddTemplateController>();
+
+
 
 
   Get.defaultDialog(
@@ -43,7 +49,7 @@ Future<void> showAddTemplateDialog(BuildContext context) async {
                 ),
 
                 const SizedBox(height: 8),
-                textfieldWidget(controller),
+                textFieldWidget(controller),
 
                 const SizedBox(height: gap),
 
@@ -88,7 +94,7 @@ Future<void> showAddTemplateDialog(BuildContext context) async {
                 const SizedBox(height: gap),
 
                 // Status Switch
-                statusSwtichWidget(controller),
+                statusSwitchWidget(controller),
 
                 const SizedBox(height: gap2),
 
@@ -106,7 +112,7 @@ Future<void> showAddTemplateDialog(BuildContext context) async {
       }));
 }
 
-Widget textfieldWidget(AddTemplateController controller) {
+Widget textFieldWidget(AddTemplateController controller) {
   return TextFormField(
     controller: controller.nameController,
     decoration: InputDecoration(
@@ -177,12 +183,15 @@ Widget dropdownButtonWidget(AddTemplateController controller) {
       ),
     ),
     value: controller.selectedCollection.value,
-    items: controller.collections.map((collection) {
+    items: controller.collectionsController.collectionDropdownItems.map((collection) {
       return DropdownMenuItem<String>(
-        value: collection,
-        child: Text(collection),
+        value: collection.id,
+        child: Text(collection.name),
       );
     }).toList(),
+    isExpanded: true, // Expand the dropdown width to match the parent width
+    dropdownColor: AppColors.white, // Optional: Adjust dropdown background color
+    menuMaxHeight: 200, // Set a fixed max height for the dropdown
     onChanged: (value) => controller.selectedCollection.value = value,
     validator: (value) {
       if (value == null) {
@@ -204,6 +213,7 @@ Widget actionButtonsWidget(AddTemplateController controller) {
             }
             controller.resetFields();
             Get.delete<AddTemplateController>();
+            Get.delete<CollectionsController>();
           },
           style: OutlinedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 12),
@@ -227,6 +237,8 @@ Widget actionButtonsWidget(AddTemplateController controller) {
                 Get.close(1); // Closes the dialog only
               }
               Get.delete<AddTemplateController>();
+              Get.delete<CollectionsController>();
+
             });
           },
           style: ElevatedButton.styleFrom(
@@ -246,7 +258,7 @@ Widget actionButtonsWidget(AddTemplateController controller) {
   );
 }
 
-Widget statusSwtichWidget(AddTemplateController controller) {
+Widget statusSwitchWidget(AddTemplateController controller) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -257,7 +269,7 @@ Widget statusSwtichWidget(AddTemplateController controller) {
           fontWeight: AppFonts.regular,
         ),
       ),
-      Text(controller.isActive.value ? "Active" : "Disabled"),
+      Text(controller.isActive.value ? "Active" : "Inactive"),
       Obx(
         () => Switch(
           value: controller.isActive.value,

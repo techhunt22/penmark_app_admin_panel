@@ -18,7 +18,7 @@ class GetOrdersDataImpl implements GetOrdersDatasource {
 
   @override
   Future<GetOrdersModel> orders({required int page, required int limit}) async {
-    const String endpoint = ListAPI.getorders;
+    const String endpoint = ListAPI.getOrders;
 
 
     try {

@@ -36,11 +36,13 @@ class GetOrdersController extends GetxController{
   }
 
   Future<void> fetchOrders({int limit = 5})async {
+    errorMessage.value = '';
+
     if (forceRefresh.value) {
       cache.clearCache();
     }
 
-    if (cache.containsPage(currentPage.value)) {
+    if (!forceRefresh.value && cache.containsPage(currentPage.value)) {
       orders.assignAll(cache.getPage(currentPage.value)!);
       cache.logCacheUsage();
       return;
@@ -62,6 +64,8 @@ class GetOrdersController extends GetxController{
 
           },
           (success) {
+            errorMessage.value = '';
+
             orders.assignAll(success.orders);
             totalPages.value = success.pagination.totalPages;
             currentPage.value = success.pagination.currentPage;
@@ -81,6 +85,7 @@ class GetOrdersController extends GetxController{
     forceRefresh.value = false;
 
   }
+
   String getInitials(String fullname) {
     List<String> nameParts = fullname.split(' '); // Split by space to get first and last name
     String initials = '';
@@ -94,6 +99,7 @@ class GetOrdersController extends GetxController{
 
     return initials.toUpperCase(); // Ensure initials are uppercase
   }
+
 
   String getDate (DateTime time){
     String formattedDate = DateFormat('dd MMM yyyy, hh:mm a').format(time);
@@ -117,7 +123,11 @@ class GetOrdersController extends GetxController{
   void clearCache() => cache.clearCache();
 
 
+
   void refreshData() {
+    if (currentPage.value < 1) {
+      currentPage.value = 1;
+    }
     forceRefresh.value = true;
     fetchOrders();
   }

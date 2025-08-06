@@ -18,7 +18,7 @@ class GetTemplatesDataImpl implements GetTemplatesDatasource {
 
   @override
   Future<GetTemplatesModel> templates({required int page, required int limit}) async {
-    const String endpoint = ListAPI.gettemplates;
+    const String endpoint = ListAPI.getTemplates;
 
 
     try {
@@ -42,7 +42,7 @@ class GetTemplatesDataImpl implements GetTemplatesDatasource {
     } catch (error) {
 
       if (kDebugMode) {
-        print('Data Source Error during GET TEMPLATES: $error');
+        print('Data Source Error during GET TEMPLATES: $error\n');
       }
       rethrow;
     }

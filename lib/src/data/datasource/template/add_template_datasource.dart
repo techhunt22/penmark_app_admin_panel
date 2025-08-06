@@ -19,7 +19,7 @@ class AddTemplatesDataImpl implements AddTemplateDatasource {
 
   @override
   Future<AddTemplatesModel> templates(AddTemplateParams params) async {
-    const String endpoint = ListAPI.addtemplate;
+    const String endpoint = ListAPI.addTemplate;
 
 
 

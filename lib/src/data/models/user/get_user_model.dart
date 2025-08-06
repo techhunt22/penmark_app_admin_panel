@@ -48,11 +48,10 @@ class Data {
   String password;
   List<dynamic> fcmTokens;
   String status;
-  String refreshToken;
+  String? refreshToken;
   List<dynamic> userTemplates;
   DateTime createdAt;
   DateTime updatedAt;
-  String phone;
 
   Data({
     required this.id,
@@ -61,11 +60,10 @@ class Data {
     required this.password,
     required this.fcmTokens,
     required this.status,
-    required this.refreshToken,
+     this.refreshToken,
     required this.userTemplates,
     required this.createdAt,
     required this.updatedAt,
-    required this.phone,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -79,7 +77,6 @@ class Data {
     userTemplates: List<dynamic>.from(json["userTemplates"].map((x) => x)),
     createdAt: DateTime.parse(json["createdAt"]),
     updatedAt: DateTime.parse(json["updatedAt"]),
-    phone: json["phone"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -93,14 +90,12 @@ class Data {
     "userTemplates": List<dynamic>.from(userTemplates.map((x) => x)),
     "createdAt": createdAt.toIso8601String(),
     "updatedAt": updatedAt.toIso8601String(),
-    "phone": phone,
   };
 
   GetUsersDataEntity toEntity() => GetUsersDataEntity(
     id: id,
     fullname: fullname,
     email: email,
-    phone: phone,
     status: status,
     createdAt: createdAt,
 

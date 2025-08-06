@@ -18,7 +18,7 @@ class GetUsersDataImpl implements GetUsersDatasource {
 
   @override
   Future<GetUsersModel> users({required int page, required int limit}) async {
-    const String endpoint = ListAPI.getusers;
+    const String endpoint = ListAPI.getUsers;
 
 
     try {

@@ -10,7 +10,7 @@ class GetTemplatesUseCase {
   GetTemplatesUseCase (this.getTemplateRepository);
 
 
-  Future<Either<Failure, GetTemplatesEntity>> gettemplatesUseCase({required limit, required page}) async {
+  Future<Either<Failure, GetTemplatesEntity>> getTemplatesUseCase({required limit, required page}) async {
     try {
 
 

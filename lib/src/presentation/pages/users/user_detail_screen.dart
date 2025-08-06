@@ -1,4 +1,8 @@
 import 'package:coloring_app_admin_panel/constants/color_constants.dart';
+import 'package:coloring_app_admin_panel/src/data/datasource/users/update_user_datasource.dart';
+import 'package:coloring_app_admin_panel/src/data/repositories_impl/user/update_user_repo_impl.dart';
+import 'package:coloring_app_admin_panel/src/domain/usecases/user/update_user_usecase.dart';
+import 'package:coloring_app_admin_panel/src/presentation/controllers/user/updateuser/update_user_controller.dart';
 import 'package:coloring_app_admin_panel/utils/CustomWidgets/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +20,7 @@ import '../../widgets/user_profile_img.dart';
 
 import 'components/orders_widget.dart';
 import 'components/recent_activity_widge.dart';
+import 'components/user_delete_dialog.dart';
 
 class UserDetailScreen extends StatefulWidget {
   const UserDetailScreen({super.key});
@@ -29,6 +34,10 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
   bool recentactivity = true;
   final TextEditingController controller = TextEditingController();
 
+
+  final updatecontroller = Get.put(UpdateUserController(UpdateUserUseCase(UpdateUserRepoImpl(UpdateUserDataImpl()))));
+
+
   @override
   void dispose() {
     super.dispose();
@@ -38,21 +47,9 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
 
   void _handleToggle() {
     if (_isEnabled == true) {
-      showDeleteDialog(
-          context: context,
-          text: 'Are you sure you want to suspent this users account?',
-          subtitle: 'The users will be suspended.',
-          img: 'assets/icons/png/personiconred.png',
-          cancel: () {
-            Navigator.pop(context);
-
-          },
-          save: () {
-            Navigator.pop(context);
-            setState(() {
-              _isEnabled = !_isEnabled;
-            });
-          });
+      setState(() {
+        _isEnabled = !_isEnabled;
+      });
     }
     else {
       setState(() {
@@ -196,41 +193,39 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                                 fontSize: AppFontSize.bodysmall2,
                                 fontWeight: AppFonts.regular),
                           ),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              height: 40,
-                              width: 150,
-                              decoration: BoxDecoration(
-                                  color:
-                                  _isEnabled ? AppColors.brightblue :AppColors.red ,
-                                  borderRadius:
-                                      BorderRadiusDirectional.circular(6)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    _isEnabled ? "Active" : "Suspended",
-                                    style: TextStyle(
-                                        fontSize: AppFontSize.bodysmall2,
-                                        fontWeight: AppFonts.regular),
-                                  ),
-                                  Switch(
-                                    activeColor: AppColors.white2,
-                                     inactiveTrackColor: AppColors.white2.withValues(alpha:0.8),
-                                     inactiveThumbColor: AppColors.white2,
-                                     trackOutlineColor: WidgetStatePropertyAll(AppColors.white2),
-                                    value: _isEnabled,
-                                    onChanged: (_) => _handleToggle(),
-                                  ),
-                                ],
-                              ),
+                          Container(
+                            height: 40,
+                            width: 150,
+                            decoration: BoxDecoration(
+                                color:
+                                _isEnabled ? AppColors.brightblue :AppColors.red ,
+                                borderRadius:
+                                    BorderRadiusDirectional.circular(6)),
+                            child: Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  _isEnabled ? "Active" : "Suspended",
+                                  style: TextStyle(
+                                      fontSize: AppFontSize.bodysmall2,
+                                      fontWeight: AppFonts.regular),
+                                ),
+                                Switch(
+                                  activeColor: AppColors.white2,
+                                   inactiveTrackColor: AppColors.white2.withValues(alpha:0.8),
+                                   inactiveThumbColor: AppColors.white2,
+                                   trackOutlineColor: WidgetStatePropertyAll(AppColors.white2),
+                                  value: _isEnabled,
+                                  onChanged: (_) => _handleToggle(),
+                                ),
+                              ],
                             ),
                           )
                         ],
                       ),
                     ),
+
                     const SizedBox(
                       height: gap,
                     ),
@@ -252,15 +247,12 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                           ),
                           CustomTextIconButton(
                               onPressed: (){
-                                showDeleteDialog(
-                                    context: context,
-                                    cancel: (){
-                                      Navigator.pop(context);
-                                    },
-                                    save: () {},
-                                    text: "Are you sure you want to delete this users account?",
-                                    subtitle: "This action cannot be undone.",
-                                    img: "assets/icons/png/deleteiconred.png"
+                                showUserDeleteDialog(
+                                  context: context,
+
+                                  //user: ,
+                                  subtitle: "This action cannot be undone.",
+                                  title: "Are you sure you want to delete this users account?",
                                 );
                               },
                               height: 45,
@@ -449,21 +441,3 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
   }
 }
 
-void showDeleteDialog(
-    {required BuildContext context,
-    required VoidCallback cancel,
-    required VoidCallback save,
-    required String text,
-    required String subtitle,
-    required String img}) {
-  showDialog(
-    context: context,
-    builder: (context) => DeleteDialog(
-      title: text,
-      subtitle: subtitle,
-      img: img,
-      cancel: cancel,
-      save: save,
-    ),
-  );
-}
